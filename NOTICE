@@ -19,6 +19,7 @@ at revision eea94292e31734d46498be7836d7e8fa50ca8cd2. Those earlier sources were
 this repository, and whether the carried lines are among what was adapted was not determined.
 The other paragraphs of the carried NOTICE concern files from which nothing is carried here;
 they are kept so that the notice is reproduced whole.
+THIRD_PARTY.md and third_party_licenses/, named in it, are files of the release and are not included here.
 
 ----- BEGIN NOTICE carried from OpenAI-YM-20261028 at 3456e5e75cf8d4cd558955a5c7638fba2d68f464 -----
 Wilson Yang–Mills source distribution

@@ -2,11 +2,30 @@
 version: "v0.4"
 
 project:
-  name: "The Lorentz Lie algebra of four-dimensional Minkowski space: sl(2,C), the exponential criterion, the complexification and the invariant bilinear forms"
+  name: "Invariant bilinear forms on the Lorentz Lie algebra so(3,1): the two-parameter family a tr(XY) + b tr(H(X)Y), with sl(2,C), the exponential criterion and the complexification"
   description: >-
     Kernel-checked proofs, in Lean 4 + Mathlib, of nine statements about
     the Lie algebra L of the linear endomorphisms of four-dimensional
     Minkowski space that are skew-adjoint for the Minkowski form.
+    Main theorem, (6): a real
+    bilinear form B on L satisfies B([Z,X],Y) + B(X,[Z,Y]) = 0 for all
+    X, Y, Z if and only if B(X,Y) = a tr(XY) + b tr(H(X)Y) for exactly
+    one pair of real numbers (a,b); every such form is symmetric. Here
+    tr(XY) is the trace form of L acting on Minkowski space and H is the
+    operator of (4). For a real simple Lie algebra whose complexification
+    is simple the invariant symmetric bilinear forms are the multiples of
+    the Killing form; for a complex simple Lie algebra regarded as a real
+    one they form a plane (Francis-Staite and Leistner, Proposition 4.1).
+    L is of the second kind: it is sl(2,C) regarded as a real Lie algebra
+    ((1), (2)), H is multiplication by -i under that isomorphism ((4)),
+    and tr(H(X)Y) is a second invariant form, not a multiple of the
+    Killing form (Olafsson and Quiroga-Barranco, Remark A.10, where it is,
+    up to a nonzero factor, K(X, J Y)). Read with X as a field strength,
+    tr(XX) and tr(H(X)X) are, up to normalisation, the Maxwell term and
+    the theta term (Tong's names); that reading is not formalized.
+    Statements (1)-(5): sl(2,C), the exponential criterion, the operator
+    H and the complexification; (2) and (4) are the structure behind the
+    second term of (6).
     (1) On Mathlib's own objects, with nothing carried: Mathlib's
     so' (Fin 1) (Fin 3) R is isomorphic, as a real Lie algebra, to
     sl(2,C) (Mathlib's sl (Fin 2) C with scalars restricted to R), by the
@@ -29,10 +48,7 @@ project:
     by -i on sl(2,C). (5) The complexification C (x)_R L is isomorphic,
     as a complex Lie algebra, to sl(2,C) x sl(2,C), and the two maps
     (1/2)(1 + iH) and (1/2)(1 - iH) are the projections onto the two
-    factors, H being the operator of (4) extended C-linearly. (6) A real
-    bilinear form B on L satisfies B([Z,X],Y) + B(X,[Z,Y]) = 0 for all
-    X, Y, Z if and only if B(X,Y) = a tr(XY) + b tr(H(X)Y) for exactly
-    one pair of real numbers (a,b); every such form is symmetric.
+    factors, H being the operator of (4) extended C-linearly.
     Controls: (7) for the definite diagonal form diag(1,1,1,1) the Lie
     algebra of skew matrices is isomorphic to so(3) x so(3), for the
     split form diag(1,1,-1,-1) it is isomorphic to sl(2,R) x sl(2,R), and
@@ -40,6 +56,7 @@ project:
     (8) there is a bilinear form on L that is not
     a tr(XY) + b tr(H(X)Y) for any real a, b; (9) there is a continuous
     linear endomorphism A with exp(A) in ProperLorentz and A not in L.
+    Numbering as in comparator.json.
     Statement (1) and part (b) of statement (2) are one isomorphism on
     two presentations; they are not two results. The Challenge imports
     Mathlib only. The definitions of Minkowski space and of the Lorentz
@@ -52,12 +69,34 @@ project:
     imported. Statement (6) is proved from the classification of the
     linear maps R of L with R[X,Y] = [X,RY], which is the subject of a
     separate entry in preparation and is not compared here.
+    Audience. Formal developments that use the Lorentz Lie algebra as an
+    object. physlib's lorentzAlgebra is Mathlib's so' (Fin 1) (Fin 3) R,
+    the object of (1); physlib also proves that the complex coefficient
+    tensors with four vector indices invariant under SL(2,C) acting
+    through the Lorentz group are combinations of the three pairings of
+    the metric and the alternating symbol (independence is not proved
+    there). The Yang-Mills release works with the Lorentz Lie algebra of
+    this entry as the predicate tangent (X^T = -theta X theta) on its own
+    4 x 4 matrix type, splits it into rotations and boosts
+    (tangent_parts), and proves, under its hypothesis Spin.Port, that its
+    Wick-rotated map into operators on field labels respects brackets
+    whenever the first argument is a boost (rank_bracket), in
+    YM/Next/BOUNDARY/Derived.lean; it does not state or use any of the
+    nine statements here, and its matrix type is not the carried
+    Spacetime. The monograph project hairer/humanise-yang-mills proves
+    that invariant bilinear forms on the compact colour algebra are
+    scalar multiples using a positive invariant inner product
+    (manuscript/existence/trace-free-rank.tex, lines 34-51, commit
+    0f00ae72); (6) shows that on so(3,1), which is simple but has no such
+    inner product, the invariant forms are a two-parameter family. No one
+    at these projects was contacted, and none of them has asked for or
+    endorsed this entry.
     Literature. This entry formalizes known mathematics; the clauses not found printed are listed below.
     (1) and (2) are the Lie-algebra form of Spin(3,1) = SL(2,C) (Woit,
-    Quantum Theory, Groups and Representations, sections 40.2 and 40.4);
+    Quantum Theory, Groups and Representations, sections 40.2 and 40.4; the formula is printed on generators in section 41.2; Olafsson and Quiroga-Barranco, Lemma A.1, state so(3,1) = sl(2,C)_R);
     (3) is the description of the Lie algebra of a matrix group by its
     one-parameter subgroups (Hall, arXiv:math-ph/0005032, Definition 3.13;
-    proved there for O(3;1), Chapter 3, section 5.6), stated here for the
+    proved there for O(n;k), which includes O(3;1), Chapter 3, section 5.6), stated here for the
     proper orthochronous subgroup, and (9) is an exercise
     of that chapter; (4) is the Hodge operator on so(3,1) (Wise, Class.
     Quantum Grav. 27 (2010) 155010, Appendix); (5) is the splitting of
@@ -68,12 +107,12 @@ project:
     Transform. Groups 17 (2012), Remark A.10; Francis-Staite and
     Leistner, Transform. Groups 26 (2021), Proposition 4.1); parts (a)
     and (b) of (7) are the companion isomorphisms in the two other
-    signatures; (8) holds by a count of dimensions (the bilinear forms on L have
+    signatures (Woit, section 21.2; Olafsson and Quiroga-Barranco, Remark
+    A.2); (8) holds by a count of dimensions (the bilinear forms on L have
     dimension 36 and the forms of statement 6 are a plane). Not found
-    printed in the sources read: the explicit formula of (1) and (2),
-    the clause of (4) on multiplication by -i, part (b) of (7) with
-    sl(2,R) in place of so(2,1), and parts (c) and (d) of (7); README.md
-    says how each follows from what is printed.
+    printed in the sources read: the clause of (4) on multiplication by
+    -i, and parts (c) and (d) of (7); README.md says how each follows from
+    what is printed.
     Prior formalization, recorded under related_formalizations (search of
     2026-11-13): no formalization of a compared statement was found. The
     counterparts for groups of (1), (2), (5), (7a) and (7b) are in
@@ -152,10 +191,15 @@ sources:
       for the groups. Section 21.2 (p. 241): so(4) = su(2) x su(2) =
       so(3) x so(3). Problem 2 of section B.18 (p. 553) poses
       so(4,C) = sl(2,C) + sl(2,C) and its real subalgebras as a problem.
-      The explicit formula of statements 1 and 2 is not printed in the
-      pages read: it is the derivative of (40.4) with the opposite sign
-      for the boosts (differentiating (40.4) sends a boost to +(1/2) sigma
-      and a rotation to -(i/2) sigma; a computation made for this entry).
+      Section 41.2 (p. 441) prints the representation pi' of so(3,1): the
+      upper block of pi'(k_j) is -(1/2) sigma_j and that of pi'(l_j) is
+      -(i/2) sigma_j, which is the explicit formula of statements 1 and 2
+      on generators (Woit's l_j, k_j are this entry's rotations and boosts
+      with the time index moved from the beginning to the end); the upper
+      blocks of pi'(A_j), pi'(B_j) are -(i/2) sigma_j and 0. The formula
+      is also the derivative of (40.4) with the opposite sign for the
+      boosts (differentiating (40.4) sends a boost to +(1/2) sigma and a
+      rotation to -(i/2) sigma; a computation made for this entry).
       Statement 7(b) is in this source for the groups only. The proofs
       here were not written from this text; see fidelity. The Springer
       printing was not opened; section and page numbers are those of the
@@ -204,8 +248,8 @@ sources:
     note: >-
       Scoped to statement 4, without its clause on multiplication by -i.
       The Appendix prints the matrix of the Hodge operator on so(3,1) in
-      the fundamental representation and states **X = -X and
-      *[X,X'] = [X,*X'], with ** = +1 in the so(4) case. The definition
+      the fundamental representation and states star(star X) = -X and
+      star[X,X'] = [X, star X'], with star(star X) = +X in the so(4) case. The definition
       hodgeMatrix of this entry is the printed matrix with the time index
       moved from the beginning to the end (compared by an exact script on
       integer coefficients). The clause of statement 4 on multiplication
@@ -240,13 +284,16 @@ sources:
       - "R. Quiroga-Barranco"
     id: "Transform. Groups 17 (2012) 835-860; arXiv:1003.0704v2"
     # Bibliographic record Crossref-verified 2026-11-13. READ 2026-11-13
-    # as arXiv:1003.0704v2 (Remark A.10, p. 21 of the arXiv version).
+    # as arXiv:1003.0704v2 (p. 9; Lemma A.1 and Remark A.2, p. 19; p. 20; Remark A.10, pp. 21-22, of the arXiv version).
     type: "paper"
     location: "https://doi.org/10.1007/s00031-012-9194-5"
     relationship: "formalizes"
     note: >-
-      Scoped to statement 6, and to statement 7(b) in the form
-      so(2,1) x so(2,1). Remark A.10: the invariant bilinear forms on
+      Scoped to statements 1, 2, 6 and 7(b), and to the simplicity used in
+      7(c), (d). Lemma A.1 (p. 19): so(3,1) = sl(2,C)_R. Remark A.2 (p. 19):
+      so(2,2) = sl(2,R) x sl(2,R) is not simple. Page 20: so(2,1) = sl(2,R).
+      Page 9: so(p,q) is simple for p + q >= 4 and (p,q) != (2,2).
+      Remark A.10: the invariant bilinear forms on
       so(2,2) = so(2,1) x so(2,1) are the combinations of the Killing
       forms of the factors; for the realification of a simple complex Lie
       algebra with Killing form K and complex structure J, the form
@@ -254,8 +301,7 @@ sources:
       lemma the invariant bilinear forms are a K + b K(., J .) with a, b
       real. Statement 6 is this for sl(2,C), with J the operator H up to
       sign and with the trace form of the action on Minkowski space in
-      place of K. The isomorphism of so(2,1) with sl(2,R) is not in the
-      pages read.
+      place of K.
     license: "unknown"
     author_endorsement: "not-contacted"
   - title: "Conformal properties of indefinite bi-invariant metrics"
@@ -264,8 +310,8 @@ sources:
       - "T. Leistner"
     id: "Transform. Groups 26 (2021) 859-892; arXiv:1901.04682v2"
     # READ 2026-11-13 as arXiv:1901.04682v2 (Proposition 4.1 and the
-    # sentence after it, pp. 11-12 of the arXiv version). The four
-    # references that sentence cites were not read.
+    # paragraph after it, pp. 11-12 of the arXiv version). The four
+    # references that paragraph cites were not read.
     type: "paper"
     location: "https://doi.org/10.1007/s00031-020-09561-9"
     relationship: "formalizes"
@@ -275,18 +321,19 @@ sources:
       the invariant symmetric bilinear forms are the multiples of the
       Killing form, or it is a complex simple Lie algebra regarded as
       real and they form a plane spanned by the real and the imaginary
-      part of the complex Killing form. The sentence after the
+      part of the complex Killing form. The paragraph after the
       proposition adds that simple Lie algebras admit no invariant
-      skew-symmetric bilinear form. Case (2) is also the reason behind
-      parts (c) and (d) of statement 7 (sl(2,C) is simple as a real Lie
-      algebra), which were not found printed as sentences.
+      skew-symmetric bilinear form. The proposition assumes that the
+      algebra is simple; the simplicity of sl(2,C) as a real Lie algebra,
+      used in parts (c) and (d) of statement 7, is taken from Olafsson and
+      Quiroga-Barranco (p. 9 and Lemma A.1).
     license: "unknown"
     author_endorsement: "not-contacted"
   - title: "Plebanski formulation of general relativity: a practical introduction"
     authors:
       - "K. Krasnov"
     id: "Gen. Relativ. Gravit. 43 (2011) 1-15; arXiv:0904.0423v2"
-    # READ 2026-11-13 as arXiv:0904.0423v2 (p. 4, equations (1), (4), (5)).
+    # READ 2026-11-13 as arXiv:0904.0423v2 (p. 3, p. 4 of the PDF, equations (1), (4), (5)).
     type: "paper"
     location: "https://doi.org/10.1007/s10714-010-1061-x"
     relationship: "background"
@@ -305,9 +352,10 @@ sources:
     type: "other"
     relationship: "background"
     note: >-
-      Source of the naming remark in the docstring of statement 6 only:
+      Source of the naming remark in the description only (the docstring of statement 6 uses the
+      general name "kinetic term", which these pages do not print):
       the two Lorentz-invariant quadratic expressions in a field strength
-      and its dual, and the names kinetic (Maxwell) term and theta term.
+      and its dual, and the names Maxwell term and theta term.
       No compared statement asserts anything about them; the reading of an
       element of L as a two-form is not formalized.
     license: "unknown"
@@ -320,7 +368,7 @@ sources:
     note: >-
       Problem 1 asks in part (a) to work out so(4) and verify that it is
       so(3) + so(3), and in part (e) to show that so(3,1) is the
-      realification of sl(2,C). Statements 1, 2(b) and 7(a), posed as
+      realification of sl(2,C). Statements 1 and 7(a), posed as
       exercises in a graduate course. Parts (d) and (e) and the remark pose
       the complexified statement, statement 5 without its projections.
     license: "unknown"
@@ -356,7 +404,7 @@ related_formalizations:
       and is not used by any statement. In that repository the Lie
       algebra of the gauge group is defined by the criterion of statement
       3 (PublicTheory.lean:22-33). Read 2026-11-11 and 2026-11-13 at that
-      commit: ProperLorentz occurs in PublicTheory.lean only (lines 209,
+      commit: among the Lean files, ProperLorentz occurs in PublicTheory.lean only (lines 209,
       215, and through PoincareCoordinates line 235); no LieSubalgebra,
       LieAlgebra or LieRing occurs in the repository; the infinitesimal
       Lorentz elements used internally are the predicate tangent
@@ -533,11 +581,9 @@ status:
   axioms: ["propext", "Classical.choice", "Quot.sound"]
 
 automation:
-  # The model name, wall time and spend below are PROPOSED values for the
-  # author to confirm.
   methods:
     - method: "agent"
-      models: ["Anthropic Claude (Fable-class, 2026)"]
+      models: ["Anthropic Claude (Fable/Opus-class, 2026)"]
       framework: "Claude Code"
       tool_setup: >-
         AI-assisted writing of the library, module by module, each against
@@ -552,7 +598,6 @@ automation:
         source; AI-assisted assembly of the Challenge, the Solution and
         this metadata.
       cost:
-        wall_time: "two days, 2026-11-12 and 2026-11-13"
         spend_usd: "subscription-based"
         hardware: "local machine, Apple silicon"
       prompting_notes: >-
@@ -576,7 +621,6 @@ automation:
         cut between this entry and the separate entry on bracket-commuting
         maps, the dependencies and the licence.
       cost:
-        wall_time: "included in the two days above"
         spend_usd: "not tracked"
         hardware: "local machine"
       prompting_notes: "n/a"
@@ -622,9 +666,9 @@ fidelity:
     form tr(XY) the two are the same fact at this form. (g) Statement 7
     is on skewAdjointMatricesLieSubalgebra of a diagonal matrix, not on
     Mathlib's named so (Fin 4) R and so' (Fin 2) (Fin 2) R. Part (b) is
-    stated with sl(2,R) x sl(2,R); the sources read have
-    so(2,1) x so(2,1) and, for the groups, SL(2,R) x SL(2,R). Parts (c)
-    and (d) were not found printed. (h) Statement 5 states the property
+    stated with sl(2,R) x sl(2,R), as in Olafsson and Quiroga-Barranco,
+    Remark A.2. Parts (c) and (d) were not found printed; each follows in
+    one step from printed sentences (README.md). (h) Statement 5 states the property
     that identifies the two factors with the maps (1/2)(1 +/- iH); it
     does not give the isomorphism on generators. (i) Statement 8 is
     proved with an explicit antisymmetric form; the reason it holds is a
@@ -648,9 +692,7 @@ fidelity:
 
 review:
   # The author's own review of the nine statements against their informal
-  # descriptions is hers to record. Until it is recorded, the status is
-  # the one below; her review replaces this field and adds her name under
-  # reviewers.
+  # descriptions is not recorded here.
   status: "agent-reviewed"
   reviewers: []
   notes: >-
@@ -669,19 +711,22 @@ review:
     separate AI-assisted pass, whose corrections were applied to the
     Challenge docstring, README.md and this file. The reports of these
     reviews and searches are working records of the author's project and
-    are not part of this repository. Not yet done: the author's own
-    review of the nine statements; a review of the assembled package on
-    the registry's published review prompts. Not peer-reviewed.
+    are not part of this repository. The assembled package was read on
+    2026-11-13 and 2026-11-14 by separate AI sessions (on the registry's
+    published review prompts, a clean-clone rebuild, the statements, each
+    citation at its source, a specialist reading) and their corrections
+    were applied. Not yet done: the author's own review of the nine
+    statements. Not peer-reviewed.
 
 alignment:
   namespace: "MinkowskiLorentz"
   statements:
-    - source: "Woit, Quantum Theory, Groups and Representations (author's draft of 20 October 2025), section 40.4: SL(2,C) is said to have the same Lie algebra as SO(3,1), with the action (40.4) on Hermitian matrices; Physics 251 Problem Set 4 (2026), Problem 1(e), poses the isomorphism as an exercise. The explicit formula was not found printed: it is the derivative of (40.4) with the opposite sign for the boosts"
+    - source: "Woit, Quantum Theory, Groups and Representations (author's draft of 20 October 2025), section 40.4: SL(2,C) is said to have the same Lie algebra as SO(3,1), with the action (40.4) on Hermitian matrices; Physics 251 Problem Set 4 (2026), Problem 1(e), poses the isomorphism as an exercise. The explicit formula is printed on generators in section 41.2 (p. 441) as the upper block of pi'; it is also the derivative of (40.4) with the opposite sign for the boosts; Olafsson-Quiroga-Barranco, Lemma A.1, state so(3,1) = sl(2,C)_R"
       lean: "MinkowskiLorentz.so'_one_three_lieEquiv_sl2C"
       module: "Solution"
       status: "proved"
       note: "Mathlib's so' (Fin 1) (Fin 3) R is isomorphic over R to sl(2,C), and the isomorphism is the explicit map X -> -(1/2) sum_k (beta_k + i theta_k) sigma_k with beta_k = X (inr k) (inl 0) (boost entries) and theta_k = X (inr (k+2)) (inr (k+1)) (rotation entries). No definition copied from the Yang–Mills release is used. The same isomorphism as part (b) of statement 2, on another presentation."
-    - source: "(a) Woit, section 40.2: the Lorentz group has dimension six, with the generators l_j, k_j and (40.1)-(40.2); (b) as statement 1; (c) not printed: the values of the derivative of (40.4) on the generators, with the opposite sign for the boosts"
+    - source: "(a) Woit, section 40.2: the Lorentz group has dimension six, with the generators l_j, k_j and (40.1)-(40.2); (b) as statement 1; (c) Woit, section 41.2 (p. 441): the upper blocks of pi'(k_j) and pi'(l_j) are -(1/2) sigma_j and -(i/2) sigma_j"
       lean: "MinkowskiLorentz.lorentzAlgebra_lieEquiv_sl2C"
       module: "Solution"
       status: "proved"
@@ -691,7 +736,7 @@ alignment:
       module: "Solution"
       status: "proved"
       note: "(a) minkowskiBilin x x = minkowskiSquare x (the carried quadratic form is the quadratic form of the entry's bilinear form). (b) A continuous linear A is in L iff every exp(tA), t real, is in the carried ProperLorentz."
-    - source: "Wise, Class. Quantum Grav. 27 (2010) 155010 (arXiv:gr-qc/0611154v2), Appendix: the matrix of the operator, **X = -X and *[X,X'] = [X,*X']; Sahlmann-Seeger, section 2.2.1, for the square -1. The clause on multiplication by -i was not found printed: it follows from statements 2(c) and 4(b) by linearity"
+    - source: "Wise, Class. Quantum Grav. 27 (2010) 155010 (arXiv:gr-qc/0611154v2), Appendix: the matrix of the operator, star(star X) = -X and star[X,X'] = [X, star X']; Sahlmann-Seeger, section 2.2.1, for the square -1. The clause on multiplication by -i was not found printed: it follows from statements 2(c) and 4(b) by linearity"
       lean: "MinkowskiLorentz.hodgeEnd_complexStructure"
       module: "Solution"
       status: "proved"
@@ -701,12 +746,12 @@ alignment:
       module: "Solution"
       status: "proved"
       note: "The complexification of L is isomorphic to sl(2,C) x sl(2,C) as complex Lie algebras, by an isomorphism E under which (1/2)(1 + iH_C) is the projection onto the factor (., 0) and (1/2)(1 - iH_C) the projection onto (0, .); H is the linear map of statement 4 (H X = hodgeEnd X is part of the statement). E is not given on generators."
-    - source: "Olafsson-Quiroga-Barranco, Transform. Groups 17 (2012) 835-860, Remark A.10: the invariant bilinear forms of the realification of a simple complex Lie algebra are a K + b K(., J .); Francis-Staite-Leistner, Transform. Groups 26 (2021) 859-892, Proposition 4.1(2) and the sentence after it (symmetric forms; no skew ones). Step not formalized: the trace form of the action on Minkowski space is a nonzero multiple of the Killing form (compare Sahlmann-Seeger (35))"
+    - source: "Olafsson-Quiroga-Barranco, Transform. Groups 17 (2012) 835-860, Remark A.10: the invariant bilinear forms of the realification of a simple complex Lie algebra are a K + b K(., J .); Francis-Staite-Leistner, Transform. Groups 26 (2021) 859-892, Proposition 4.1(2) and the paragraph after it (symmetric forms; no skew ones). Step not formalized: the trace form of the action on Minkowski space is a nonzero multiple of the Killing form (compare Sahlmann-Seeger (35))"
       lean: "MinkowskiLorentz.invariant_bilinForm_iff"
       module: "Solution"
       status: "proved"
       note: "A bilinear form on L is invariant iff it is a tr(XY) + b tr(H(X)Y) for exactly one real pair; invariant forms are symmetric. tr(XY) is Mathlib's LieModule.traceForm of L acting on Spacetime."
-    - source: "(a) Woit, section 21.2 (p. 241 of the draft): so(4) = so(3) x so(3); Physics 251 Problem Set 4 (2026), Problem 1(a). (b) stated in adjacent forms only: Olafsson-Quiroga-Barranco, Remark A.10, so(2,2) = so(2,1) x so(2,1), and Woit, section 40.4, Spin(2,2) = SL(2,R) x SL(2,R) for the groups; the isomorphism of so(2,1) with sl(2,R) is classical and is not in the pages read. (c), (d): not found printed; sl(2,C) is simple as a real Lie algebra and the two other algebras are products"
+    - source: "(a) Woit, section 21.2 (p. 241 of the draft): so(4) = so(3) x so(3); Physics 251 Problem Set 4 (2026), Problem 1(a). (b) Olafsson-Quiroga-Barranco, Remark A.2 (p. 19): so(2,2) = sl(2,R) x sl(2,R); also their Remark A.10, so(2,2) = so(2,1) x so(2,1), and Woit, section 40.4, Spin(2,2) = SL(2,R) x SL(2,R) for the groups. (c), (d): not found printed; they follow from the simplicity of so(3,1) = sl(2,C)_R (Olafsson-Quiroga-Barranco, p. 9 and Lemma A.1) and the non-simplicity of so(2,2) (Remark A.2) and of so(4) = so(3) x so(3)"
       lean: "MinkowskiLorentz.definite_split_signature"
       module: "Solution"
       status: "proved"
@@ -722,7 +767,6 @@ alignment:
       status: "proved"
       note: "Control of statement 3. There is A with exp A in ProperLorentz and A not in L."
 
-# PROPOSED text; the acknowledgements are the author's.
 acknowledgements: >-
   Built on Mathlib and the Lean 4 toolchain; thanks to the leanprover
   community. Developed with AI assistance (Anthropic Claude, in Claude

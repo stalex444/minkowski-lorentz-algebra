@@ -3,10 +3,26 @@ public import Mathlib
 
 @[expose] public section
 /-!
-# The Lorentz Lie algebra of four-dimensional Minkowski space: `sl(2, ℂ)`, the exponential criterion, the complexification and the invariant bilinear forms
+# Invariant bilinear forms on the Lorentz Lie algebra `so(3, 1)`: the two-parameter family, with `sl(2, ℂ)`, the exponential criterion and the complexification
 
 Let `L` be the Lie algebra of the linear endomorphisms of four-dimensional Minkowski space that
 are skew-adjoint for the Minkowski form. This entry compares exactly nine statements.
+The main theorem is statement 6: the invariant bilinear forms on `L` are exactly
+`a · tr (X Y) + b · tr (H(X) Y)`, with `(a, b)` unique, and all of them are symmetric. Statements 1–5
+are the identification with `sl(2, ℂ)`, the exponential criterion, the operator `H` and the
+complexification. By statements 2 and 4, `L` is `sl(2, ℂ)` regarded as a real Lie algebra and `H` is
+multiplication by `-i` under that isomorphism. `sl(2, ℂ)` is a complex simple Lie algebra (a classical
+fact, not one of the compared statements), and by the uniqueness of `(a, b)` the forms with `b ≠ 0`
+are the invariant forms that are not multiples of the trace form. Statements 7–9 are controls. They
+are listed below by role; `comparator.json` and the theorems of this file keep the order 1–9.
+
+The main theorem, the invariant bilinear forms (statement 6):
+
+6. `invariant_bilinForm_iff` — a real bilinear form `B` on `L` satisfies
+   `B ⁅Z, X⁆ Y + B X ⁅Z, Y⁆ = 0` for all `X`, `Y`, `Z` if and only if
+   `B X Y = a · tr (X Y) + b · tr (H(X) Y)` for exactly one pair of real numbers `(a, b)`; every
+   such form is symmetric. Here `tr (X Y)` is Mathlib's `LieModule.traceForm` of `L` acting on
+   Minkowski space.
 
 `sl(2, ℂ)` and the exponential criterion (statements 1–3):
 
@@ -36,14 +52,6 @@ The operator `H` and the complexification (statements 4–5):
    algebra, to `sl(2, ℂ) × sl(2, ℂ)`, and the two maps `½ (1 + i H)` and `½ (1 - i H)` are the
    projections onto the two factors, `H` being the operator of statement 4 extended
    `ℂ`-linearly.
-
-The invariant bilinear forms (statement 6):
-
-6. `invariant_bilinForm_iff` — a real bilinear form `B` on `L` satisfies
-   `B ⁅Z, X⁆ Y + B X ⁅Z, Y⁆ = 0` for all `X`, `Y`, `Z` if and only if
-   `B X Y = a · tr (X Y) + b · tr (H(X) Y)` for exactly one pair of real numbers `(a, b)`; every
-   such form is symmetric. Here `tr (X Y)` is Mathlib's `LieModule.traceForm` of `L` acting on
-   Minkowski space.
 
 Controls (statements 7–9):
 
@@ -145,17 +153,20 @@ R. Quiroga-Barranco, Transform. Groups 17 (2012) 835–860, Remark A.10; K. Fran
 T. Leistner, Transform. Groups 26 (2021) 859–892, Proposition 4.1), for `sl(2, ℂ)` and written
 with the trace form of Minkowski space. Parts (a) and (b) of statement 7 are the companion
 isomorphisms in the two other signatures: `so(4) = so(3) × so(3)` (Woit, §21.2) and
-`so(2, 2) ≃ so(2, 1) × so(2, 1)` (Ólafsson and Quiroga-Barranco, Remark A.10), with
-`Spin(2, 2) = SL(2, ℝ) × SL(2, ℝ)` for the groups (Woit, §40.4). Four things were not found
-printed in the sources read for this entry: the explicit formula of statements 1 and 2, the
-clause of statement 4 on multiplication by `-i`, part (b) of statement 7 with `sl(2, ℝ)` in
-place of `so(2, 1)`, and parts (c) and (d) of statement 7. The formula is the derivative of the
-action cited above, with the opposite sign for the boosts (a computation made for this entry).
-The clause on `-i` follows from the values on the six generators in statements 2 and 4, by
-linearity. Part (b) follows from the classical isomorphism of `so(2, 1)` with `sl(2, ℝ)`, which
-is not in the pages read. Parts (c) and (d) follow from parts (a) and (b) and the simplicity of
-`sl(2, ℂ)` as a real Lie algebra (Francis-Staite and Leistner, Proposition 4.1, case (2)). This
-entry formalizes known mathematics; the clauses listed here are the ones not found printed.
+`so(2, 2) ≃ sl(2, ℝ) × sl(2, ℝ)` (Ólafsson and Quiroga-Barranco, Remark A.2; their Remark A.10
+has `so(2, 2) ≃ so(2, 1) × so(2, 1)`), with `Spin(2, 2) = SL(2, ℝ) × SL(2, ℝ)` for the groups
+(Woit, §40.4). The formula of statements 1 and 2 is printed in Woit, §41.2 (p. 441), on
+generators, as the upper block of the representation `π′` of `so(3, 1)`: `π′(k_j)` has upper
+block `-½ σ_j` and `π′(l_j)` has `-(i/2) σ_j`, and Woit's `k_j`, `l_j` (§40.2) are this entry's
+boosts and rotations with the time index moved from the beginning to the end; Ólafsson and
+Quiroga-Barranco state `so(3, 1) ≃ sl(2, ℂ)_ℝ` (Lemma A.1). Two things were not found printed in
+the sources read for this entry: the clause of statement 4 on multiplication by `-i`, and parts
+(c) and (d) of statement 7. The clause on `-i` follows from the values on the six generators in
+statements 2 and 4, by linearity (compare Woit, §41.2, where `π′(B_j)` has upper block `0`).
+Parts (c) and (d) follow from parts (a) and (b), the simplicity of `so(3, 1) ≃ sl(2, ℂ)_ℝ`
+(Ólafsson and Quiroga-Barranco, p. 9 and Lemma A.1) and the non-simplicity of `so(2, 2)` (ibid.,
+Remark A.2) and of `so(4) = so(3) × so(3)`. This entry formalizes known mathematics; the clauses
+listed here are the ones not found printed.
 
 Prior formalization (search of 2026-11-13). The group-level counterpart of statements 1 and 2,
 `Spin(3, 1) ≃* SL(2, ℂ)`, is in TauCeti, and the homomorphism from `SL(2, ℂ)` onto the restricted

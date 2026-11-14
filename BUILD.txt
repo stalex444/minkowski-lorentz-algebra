@@ -1,10 +1,10 @@
-minkowski-lorentz-algebra -- build record, 2026-11-13 (local package; nothing pushed, registered or sent)
-STATUS: assembled and finished locally. The Lean content below is complete and checked. The title and the
-  classification in formalization.yaml and README.md are the author's, adopted on 2026-11-13. The repository
-  will be github.com/stalex444/minkowski-lorentz-algebra (not yet created). Open items, all the author's: her
-  own review of the nine statements (review.status in formalization.yaml and the section "Production and
-  review" of README.md), the acknowledgements and the automation values (model, wall time, spend);
-  formalization.yaml carries PROPOSED values for the last two, marked as such.
+minkowski-lorentz-algebra -- build record, 2026-11-13 and 2026-11-14 (made locally before the repository was published; nothing was registered or sent while it was made)
+STATUS: assembled and finished locally. The Lean content below is complete and checked. The title in
+  formalization.yaml, README.md and Challenge.lean was changed and adopted by the author on 2026-11-14; the classification
+  is the author's, adopted on 2026-11-13. The repository
+  is github.com/stalex444/minkowski-lorentz-algebra, created after this record was made. The models line,
+  the acknowledgements and the licence sentence are the author's, adopted on 2026-11-14; her own review of
+  the nine statements is not recorded.
 
 Toolchain: leanprover/lean4:v4.35.0-rc2
   lean --version: Lean (version 4.35.0-rc2, arm64-apple-darwin24.6.0, commit 11acb17ec6b07a8f9e9173e6845197929540936b, Release)
@@ -219,7 +219,7 @@ Mathlib rev: 065356127b1dc0016f66b7283ce0ce2c4055aa55
     The negative control was not repeated after the docstring edits.
   No bubblewrap sandbox on macOS (hence --inadvisably-no-sandbox).
   NOT RUN: the registry's own submission workflow (the repository github.com/stalex444/minkowski-lorentz-algebra
-    does not exist yet and no preflight was dispatched); a build from a fresh clone with lake exe cache get; the registry's licence detection (its
+    did not exist when this record was made, and no preflight was dispatched); a build from a fresh clone with lake exe cache get; the registry's licence detection (its
     detector is not installed here) and rendering steps; --paranoid.
 
 6. #print axioms (lake env lean Axioms.lean, Axioms.lean importing Solution), after the last edit of the
@@ -273,7 +273,7 @@ Mathlib rev: 065356127b1dc0016f66b7283ce0ce2c4055aa55
     file and derives result_origin source-based and repository_role substantive-development: nine sources
     (six with relationship formalizes, three background) and ten related formalizations (five builds-on,
     five other).
-  project.description: 6,848 characters (limit 10,000). project.name: 150 characters (limit 300).
+  project.description: 9,404 characters (limit 10,000). project.name: 174 characters (limit 300).
   The classification codes, each present in the registry's taxonomy snapshot at that commit, are the
     author's, adopted on 2026-11-13 (they were proposed at assembly).
   formalization.yaml has no `repository` field: the registry's CONTRIBUTING.md (section 3.2) says it is
@@ -348,3 +348,86 @@ Registry source check on the tracked files
   scripts.source_requirements.inspect_lean_sources (PalomarSubmission 14aa8d6b, local copy, Python 3.11) on a
   copy of the 36 tracked files: 25 .lean files checked, module header required, at most 10,000 lines each,
   0 issues.
+
+Round of 2026-11-14 (after the re-check of commit 8f14615bebea691656b620f3823f30aaad694ac9)
+  Re-check of 8f14615b, earlier that day: a build from a clean clone of that commit, with .lake/packages
+    a symbolic link to the same built packages (not lake exe cache get), each target one at a time:
+    ArithmeticLorentz, GravityScreening, LorentzLie, ReleaseAdapter, Challenge, Solution and lake build, all
+    exit 0; lake comparator --inadvisably-no-sandbox, exit 0, "Your solution is okay!"; lake env lean
+    Axioms.lean, exit 0, 40 declarations, each [propext, Classical.choice, Quot.sound]. The re-check found
+    no defect in the Lean and four claims about the literature to correct.
+  Edits after the re-check (docstrings and prose only): the literature citations were corrected against the
+    sources read by the re-check, in Challenge.lean, README.md and formalization.yaml; the opening of the
+    Challenge docstring was reordered to lead with statement 6, and its title line changed; NOTICE gained
+    one sentence. In Challenge.lean the edits are confined to the opening module docstring (lines 5-230,
+    formerly 5-219): the text before it is byte-identical to 8f14615b, the text from `set_option
+    autoImplicit` to the end is byte-identical, and with comments removed and whitespace normalised the
+    file is identical to its text at 8f14615b (script comparison). Solution.lean, comparator.json and
+    every library module are unchanged.
+  Builds of that edited tree (from the package root, a new .lake with .lake/packages a symbolic link to the
+    same built packages; the library modules compiled again from their sources), one at a time, from
+    09:48 UTC:
+    lake build Challenge           -> Build completed successfully (8932 jobs), exit 0, 26 s
+    lake build                     -> Build completed successfully (8960 jobs), exit 0, 125 s
+    lake comparator --inadvisably-no-sandbox, from 09:51 UTC, on Challenge.lean
+      74dc53519985bbce5f986327ae50ea36599e1b75856246699795fe3ec21f31c6: exit 0, "Your solution is okay!"
+    lake env lean Axioms.lean, 09:52 UTC: exit 0; 40 declarations, each [propext, Classical.choice,
+      Quot.sound].
+  Order and count: the count gate of section 4 (its check of names and order reads the declarations, not the docstring list), run
+    unchanged on that tree, reported FAIL: its pattern for a declaration, a line beginning with
+    "theorem", also matched line 10 of the reordered docstring ("theorem is statement 6: ..."), so it
+    counted 10 declarations and then reported the name lists as different. Lines 9-17 of the docstring
+    were then rewrapped so that no docstring line begins with "theorem" (line 9 ends "This entry compares
+    exactly nine statements."; line 10 begins "The main theorem is statement 6:"); the docstring keeps its
+    line count. The unchanged gate, run again on the final tree, reported PASS: 9 in each of the ten
+    places, the names and their order equal in comparator.json and formalization.yaml, and the same nine
+    names proved in Solution.lean.
+  Later edits (docstrings and prose only): in Challenge.lean the sentence on sl(2, C) in the opening
+    paragraph now gives the uniqueness of (a, b) as the reason, together with the rewrap above; in
+    README.md one sentence on how the builds used the existing Mathlib build was corrected and two lines
+    were rewrapped; in formalization.yaml the models line was set and two comment lines were removed; the
+    head of this record and the NOT RUN line of section 5 were updated. With comments removed and
+    whitespace normalised, Challenge.lean is identical to its text at 8f14615b (script comparison: /- -/
+    blocks, nested, and -- line comments removed, whitespace runs collapsed); the text before the opening
+    docstring and the text from `set_option autoImplicit` to the end are byte-identical to 8f14615b.
+    Solution.lean, comparator.json, lakefile.toml, lake-manifest.json, lean-toolchain and every other
+    .lean file are unchanged from 8f14615b (git diff, exit 0).
+  Challenge.lean is now 528 lines and 35,673 bytes, sha256
+    fe65103f079f3e080a95db111e0699c46427aa757eca3f5beb4133bae8187282; the opening docstring is lines 5-230
+    (226 lines), and `set_option autoImplicit` is at line 232.
+  Final rebuild round, on the final tree (same .lake), one at a time, from 10:10 UTC:
+    lake build Challenge           -> Build completed successfully (8932 jobs), exit 0, 25 s
+    lake build                     -> Build completed successfully (8960 jobs), exit 0, 4 s
+  Warnings: the same as in section 2. The 9 'declaration uses sorry' warnings of Challenge.lean are at
+    lines 376, 396, 414, 431, 452, 475, 495, 511, 522; no other warning in Challenge.lean.
+  lake comparator --inadvisably-no-sandbox, from 10:11 UTC, 86 s, inputs:
+      fe65103f079f3e080a95db111e0699c46427aa757eca3f5beb4133bae8187282  Challenge.lean
+      c87a7af9de6d58d0a2daa104ef98ff0c67bb83f0ccd9fe05adeff3720884dca5  Solution.lean
+      1a880e0c62af42a92e004af72158eb6961e2a616c435d63e1f7b4c710cfec5be  comparator.json
+    Closing lines, verbatim:
+      Running nanoda kernel on solution
+      nanoda kernel accepts the solution
+      Running Lean default kernel on solution
+      Lean default kernel accepts the solution
+      Your solution is okay!
+    exit 0.
+  lake env lean Axioms.lean, 10:12 UTC: exit 0; 40 declarations, each [propext, Classical.choice,
+    Quot.sound]; the same names in the same order as section 6 (line wrapping aside).
+  Metadata, on the final formalization.yaml and the unchanged comparator.json:
+    formalization.yaml loads (PyYAML) and validates against the v0.4 schema (JSON Schema draft-07,
+      Python 3.10, jsonschema 4.26.0, 0 errors).
+    The registry contract (PalomarSubmission 14aa8d6b, the local copy of section 7, Python 3.11):
+      load_formalization_metadata loads the file; normalized_provenance gives result_origin source-based and
+      repository_role substantive-development; nine sources (six formalizes, three background; by type six
+      paper, one book, two other) and ten related formalizations (five builds-on, five other).
+      project.description 9,404 characters, project.name 174 characters (section 7).
+    scripts.verify_submission.load_comparator_config loads comparator.json (9 theorem_names).
+    scripts.source_requirements.inspect_lean_sources on a copy of the 36 tracked files: 25 .lean files
+      checked, 0 issues.
+  SHA256SUMS regenerated (the same 31 files, in the same order); `shasum -a 256 -c SHA256SUMS`, exit 0.
+    Against 8f14615b, Challenge.lean and NOTICE changed. The list "Files (sha256)" above records the files
+    as of 2026-11-13; for Challenge.lean and NOTICE the current values are those of SHA256SUMS:
+      fe65103f079f3e080a95db111e0699c46427aa757eca3f5beb4133bae8187282  Challenge.lean
+      eb5bdd2a40d2fef0552114931e6b730d079ae7de68c7d41ad6f592b84d378a99  NOTICE
+  NOT RUN in this round: lake exe cache get; a build of the edited tree from a fresh clone; the structural
+    hash check of section 4; the negative control of section 5; the registry's own submission workflow.

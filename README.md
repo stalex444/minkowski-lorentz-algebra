@@ -1,24 +1,63 @@
-# The Lorentz Lie algebra of four-dimensional Minkowski space: `sl(2, ℂ)`, the exponential criterion, the complexification and the invariant bilinear forms
+# Invariant bilinear forms on the Lorentz Lie algebra `so(3, 1)`: the two-parameter family, with `sl(2, ℂ)`, the exponential criterion and the complexification
 
 Author: Stephanie Alexander (ORCID [0009-0003-7727-2565](https://orcid.org/0009-0003-7727-2565)).
 
 Kernel-checked, in Lean 4 + Mathlib. Let `L = so(3, 1)` be the Lorentz Lie algebra: the linear
 endomorphisms of four-dimensional Minkowski space that are skew-adjoint for the Minkowski form.
-This entry proves nine statements about `L`. (They are the statements the registry's Comparator
+This entry proves nine statements about `L`. (They are the statements the Palomar registry's Comparator
 checks; "compared" below means one of these nine.)
 
-- **1–2.** `L` is isomorphic to `sl(2, ℂ)` as a real Lie algebra, by the explicit map
-  `X ↦ −½ Σ_k (β_k + iθ_k) σ_k` (`β`, `θ` the boost and rotation entries of `X`); `dim L = 6`.
-- **3.** A linear endomorphism `A` is in `L` if and only if `exp (t A)` is a proper orthochronous
-  Lorentz transformation for every real `t`.
-- **4.** The Hodge operator `H` on `L`, defined here entry by entry on matrices, satisfies
-  `H[X, Y] = [X, HY]` and `H² = −1`, and the isomorphism carries it to multiplication by `−i`.
-- **5.** `ℂ ⊗_ℝ L ≅ sl(2, ℂ) × sl(2, ℂ)`, with `½ (1 ± i H)` the two projections.
-- **6.** The invariant bilinear forms on `L` are exactly `a · tr (X Y) + b · tr (H(X) Y)`, with
-  `(a, b)` unique; all of them are symmetric.
+**The main theorem (statement 6).** A real bilinear form `B` on `L` is invariant,
+`B([Z, X], Y) + B(X, [Z, Y]) = 0` for all `X`, `Y`, `Z`, if and only if
+`B(X, Y) = a · tr (X Y) + b · tr (H(X) Y)` for exactly one pair of real numbers `(a, b)`; every
+invariant form is symmetric. No symmetry of `B` is assumed. Here `tr (X Y)` is the trace form of
+`L` acting on Minkowski space and `H` is the Hodge operator on `L` (statement 4).
+
+The second term is where the complex structure of `so(3, 1)` enters. For a real simple Lie
+algebra whose complexification is simple, the invariant symmetric bilinear forms are the
+multiples of the Killing form; when the algebra is a complex simple Lie algebra regarded as a
+real one, they form a plane (Francis-Staite and Leistner, Proposition 4.1). `L` is of the second
+kind: it is `sl(2, ℂ)` regarded as a real Lie algebra (statements 1 and 2), and `H` is
+multiplication by `−i` under that isomorphism (statement 4). The form `tr (H(X) Y)` is then a
+second invariant form, not a multiple of the Killing form (Ólafsson and Quiroga-Barranco, Remark
+A.10, where it is, up to a nonzero factor, `K(X, J Y)`). Statement 6 is that classification for
+this algebra, written with the trace form, which is half the Killing form (that step is not
+formalized). For `X` read as a field strength `F = η X`, `tr (X X) = −F_{μν} F^{μν}` and
+`tr (H(X) X)` is, up to the sign fixed by the normalisation of the alternating symbol, `F`
+contracted with its dual: up to normalisation, the Maxwell term and the theta term, in Tong's
+names (S8 below). The reading of `X` as a two-form is not formalized.
+
+**Who it is for** (sources under "Who this is for", commits there and under "Prior formalization").
+Formal developments that use the Lorentz Lie algebra as an object. physlib's `lorentzAlgebra` is
+Mathlib's `so' (Fin 1) (Fin 3) ℝ`, the object of statement 1. physlib also proves that the complex
+coefficient tensors with four vector indices invariant under `SL(2, ℂ)` acting through the
+Lorentz group are combinations of the three pairings of the metric and the alternating symbol,
+and it applies this to products of two field strengths; the header of that file says that
+independence is not proved there. The Yang–Mills release works with this Lie algebra as a
+predicate on its own matrix type and does not state or use any of the nine statements. The
+monograph project `hairer/humanise-yang-mills` proves that invariant bilinear forms on its
+compact colour algebra are scalar multiples, using a positive invariant inner product; statement
+6 shows that on `so(3, 1)`, which is simple but has no such inner product, the invariant forms
+are a two-parameter family. No one at these projects was contacted, and none of them has asked
+for or endorsed this entry.
+
+The nine statements, by role:
+
+- **6. The main theorem**, above.
+- **1–5. `sl(2, ℂ)`, the exponential criterion, the operator `H` and the complexification.**
+  Statements 2 and 4 are the structure behind the second term of statement 6.
+  - **1–2.** `L` is isomorphic to `sl(2, ℂ)` as a real Lie algebra, by the explicit map
+    `X ↦ −½ Σ_k (β_k + iθ_k) σ_k` (`β`, `θ` the boost and rotation entries of `X`); `dim L = 6`.
+  - **3.** A linear endomorphism `A` is in `L` if and only if `exp (t A)` is a proper orthochronous
+    Lorentz transformation for every real `t`.
+  - **4.** The Hodge operator `H` on `L`, defined here entry by entry on matrices, satisfies
+    `H[X, Y] = [X, HY]` and `H² = −1`, and the isomorphism carries it to multiplication by `−i`.
+  - **5.** `ℂ ⊗_ℝ L ≅ sl(2, ℂ) × sl(2, ℂ)`, with `½ (1 ± i H)` the two projections.
 - **7–9.** Three checks that the hypotheses matter ("controls" below): `so(4) ≅ so(3) × so(3)`
   and `so(2, 2) ≅ sl(2, ℝ) × sl(2, ℝ)`, and neither is `sl(2, ℂ)`; some bilinear form on `L` is
   not of the shape in statement 6; and `exp A` can be in `ProperLorentz` with `A` not in `L`.
+
+The theorems of `Challenge.lean` and the list in `comparator.json` keep the order 1–9.
 
 Minkowski space is the type `Spacetime` with the quadratic form `minkowskiSquare`, and the proper
 orthochronous Lorentz transformations are the type `ProperLorentz` (determinant `1`, the form
@@ -30,15 +69,16 @@ statement 1 uses this entry's `spinOf` and `pauli`.
 
 This entry formalizes known mathematics; the clauses not found printed are listed below. What
 this entry adds is the nine statements as kernel-checked theorems on Mathlib's `so'` and on the
-carried copy of Minkowski space, with explicit formulas. Statements 1, 2 and 5: Woit, §40.2 and
-§40.4; for statement 5 also Sahlmann and Seeger, §2.2.1. Statements 3 and 9: Hall, Definition
-3.13, Chapter 3, §5.6 (proved there for `O(3; 1)`) and Exercise 5. Statement 4: Wise, Appendix.
-Statement 6: Ólafsson and Quiroga-Barranco, Remark A.10; Francis-Staite and Leistner,
-Proposition 4.1. Statement 7(a), (b): the companion isomorphisms in the two other signatures.
+carried copy of Minkowski space, with explicit formulas. Statements 1, 2 and 5: Woit, §40.2,
+§40.4 and §41.2; for statements 1 and 2 also Ólafsson and Quiroga-Barranco, Lemma A.1; for
+statement 5 also Sahlmann and Seeger, §2.2.1. Statements 3 and 9: Hall, Definition 3.13,
+Chapter 3, §5.6 (proved there for `O(n; k)`, which includes `O(3; 1)`) and Exercise 5.
+Statement 4: Wise, Appendix. Statement 6: Ólafsson and Quiroga-Barranco, Remark A.10;
+Francis-Staite and Leistner, Proposition 4.1. Statement 7(a), (b): the companion isomorphisms in
+the two other signatures (Woit, §21.2; Ólafsson and Quiroga-Barranco, Remark A.2).
 Statement 8 is a count of dimensions. "Relation to the literature" gives the pages, and says how
-the statement follows from the printed sentence for the four clauses that were not found printed
-(the explicit formula of statements 1 and 2, the `-i` clause of statement 4, statement 7(b) with
-`sl(2, ℝ)`, and statement 7(c), (d)).
+the statement follows from the printed sentences for the two clauses that were not found printed
+(the `-i` clause of statement 4, and statement 7(c), (d)).
 
 Prior formalization (search of 2026-11-13): none of the nine statements was found. The nearest
 work is: the group-level counterparts of statements 1, 2, 5, 7(a) and 7(b) and every ingredient
@@ -54,17 +94,23 @@ gives the files and commits, where the search looked and what it could not searc
 ## Who this is for
 
 Formal developments that use the Lorentz group of Minkowski space and need its Lie algebra as an
-object: its identification with `sl(2, ℂ)`, the passage between the algebra and the
-one-parameter groups, and its invariant bilinear forms.
+object: its invariant bilinear forms, its identification with `sl(2, ℂ)`, and the passage between
+the algebra and the one-parameter groups.
 
-The objects of this entry are in use in the following public places. They were read on
-2026-11-13 at the commits listed under "Prior formalization"; no one at these projects was
+The objects of this entry occur in the following public places. They were read on
+2026-11-13 at the commits listed under "Prior formalization" (the monograph's
+`manuscript/existence/trace-free-rank.tex` also on 2026-11-14, at commit
+`0f00ae72f910506d5968174225392531de5a4c8b`); no one at these projects was
 contacted, and none of them has asked for or endorsed this entry.
 
 - **physlib.** Its `lorentzAlgebra` is Mathlib's `so' (Fin 1) (Fin 3) ℝ`, the object statement 1
   is stated on. It has the six generators (their linear independence and spanning are marked
   there as not yet proved), and since 2026-11-12 it defines the Lie algebra of a closed matrix
-  group by the criterion of statement 3.
+  group by the criterion of statement 3. For statement 6: physlib proves that a complex
+  coefficient tensor with four vector indices invariant under `SL(2, ℂ)` acting through the
+  Lorentz group is a combination of the three pairings of the metric and the alternating symbol
+  (`PhyslibAlpha/Relativity/LorentzGroup/Invariants/RankFour.lean`; its header says that
+  independence is not proved there), and applies this to products of two field strengths.
 - **TauCeti.** The Lie algebras of the real Spin groups by exponential lines, invariant forms on
   simple Lie algebras, and `Spin(3, 1)`, `Spin(4)`, `Spin(2, 2)` as groups.
 - **The Yang–Mills release** and the monograph project
@@ -72,9 +118,22 @@ contacted, and none of them has asked for or endorsed this entry.
   a crowd-sourced effort to turn that release into a human-readable proof in which existing
   mathematical results are to be found and cited. The file `PublicTheory.lean` of the release
   defines `ProperLorentz` and the covariance of its fields under the Poincaré group built on it; no
-  `LieAlgebra`, `LieSubalgebra` or `LieRing` occurs in the repository. Statements 2–6, 8 and 9
-  here are stated on copies of that text for Minkowski space, and statements 3 and 9 also on the
-  copy of the type `ProperLorentz`.
+  Mathlib Lie-algebra structure (`LieAlgebra`, `LieSubalgebra`, `LieRing`) occurs in the
+  repository. The Lie algebra of the gauge group is the field `lieAlgebra` of the structure
+  `GaugeGroup` (`PublicTheory.lean:22-33`), a real submodule of matrices characterized by the
+  criterion of statement 3. The release works with the Lorentz Lie algebra of this entry as the
+  predicate `tangent` (`Xᵀ = −θXθ`) on its own `4 × 4` matrix type, splits it into rotations and
+  boosts (`tangent_parts`), and proves, under its hypothesis `Spin.Port`, that its Wick-rotated
+  map into operators on field labels respects brackets whenever the first argument is a boost
+  (`rank_bracket`), in `YM/Next/BOUNDARY/Derived.lean` (lines 21, 43, 114, 211); it does not
+  state or use any of the nine statements here, and its matrix type is not the carried
+  `Spacetime`. The monograph project's proof that invariant bilinear forms on the compact colour
+  algebra are scalar multiples (`manuscript/existence/trace-free-rank.tex`, lines 34–51 at commit
+  `0f00ae72`; lines 33–50 at the linked commit `ba4528fd`) uses a positive invariant inner
+  product; statement 6 shows that on `so(3, 1)`, which is simple but has no such inner product,
+  the invariant forms are a two-parameter family. Statements 2–6, 8 and 9 here are stated on
+  copies of the release's `PublicTheory.lean` text for Minkowski space, and statements 3 and 9 also
+  on the copy of the type `ProperLorentz`.
 - **Teaching and papers.** A graduate problem set of 2026 poses statements 1 and 7(a) as
   exercises, and statement 5 without its projections (source S9 below). The self-dual splitting of the complexified Lorentz algebra and
   the invariant forms of a simple real Lie algebra are used in Sahlmann and Seeger (2024) and in
@@ -111,7 +170,7 @@ The operator `H` and the complexification (statements 4–5):
 
 The invariant bilinear forms (statement 6):
 
-6. `invariant_bilinForm_iff` — a bilinear form on `L` is invariant iff it is
+6. `invariant_bilinForm_iff` — a bilinear form `B` on `L` is invariant (`B([Z,X],Y) + B(X,[Z,Y]) = 0`) iff it is
    `a·tr(XY) + b·tr(H(X)Y)` for exactly one real pair; invariant forms are symmetric. `tr(XY)` is
    Mathlib's `LieModule.traceForm ℝ L Spacetime`.
 
@@ -127,8 +186,13 @@ Controls (statements 7–9):
 
 Sums of indices such as `k + 1`, `k + 2` are taken in `Fin 3`, and `σ_k` stands for `pauli k`,
 `k = 0, 1, 2` (the Pauli matrices `σ₁, σ₂, σ₃`). The Lorentz algebra is written `so(3, 1)`
-throughout; `so(1, 3)` and Mathlib's `so' (Fin 1) (Fin 3) ℝ` put time first, and `so(3; 1)`,
-`O(3; 1)` are Hall's notation.
+throughout. A matrix is skew-adjoint for a form exactly when it is skew-adjoint for the negative
+of that form, so `so(3, 1)` and `so(1, 3)` differ only by that sign convention and by where time
+is placed. `minkowskiBilin` is `x₃y₃ − (x₀y₀ + x₁y₁ + x₂y₂)`, time at index `3`, and `L` is equally
+the algebra of matrices skew-adjoint for `diag(1, 1, 1, −1)`: Hall's `so(3; 1)`, the form of his
+`O(3; 1)`, time last. Woit's `so(3, 1)` uses `diag(−1, 1, 1, 1)`, time first. The title of
+statement 1 writes `so(1, 3)` for Mathlib's `so' (Fin 1) (Fin 3) ℝ`, whose form is
+`diag(1, −1, −1, −1)`, time first at the index `Sum.inl 0`.
 
 ## How the statements relate, and what is proved elsewhere
 
@@ -313,7 +377,9 @@ is said. Section numbers of Woit's book are those of the author's draft that was
   `so(3, 1) ⊗ ℂ = sl(2, ℂ) ⊕ sl(2, ℂ)`. §40.4 (pp. 431–434): `Spin(3, 1)` is identified with
   `SL(2, ℂ)`, which is said to have the same Lie algebra as `SO(3, 1)`; the action (40.4) of
   `SL(2, ℂ)` on Hermitian matrices; `Spin(4) = SU(2) × SU(2)` and `Spin(2, 2) = SL(2, ℝ) × SL(2, ℝ)`
-  for the groups. §21.2 (p. 241): `so(4) = su(2) × su(2) = so(3) × so(3)`. Problem 2 of
+  for the groups. §21.2 (p. 241): `so(4) = su(2) × su(2) = so(3) × so(3)`. §41.2 (pp. 440–441):
+  the representation `π′` of `so(3, 1)` on `ℂ⁴`; on p. 441 `π′(k_j)`, `π′(l_j)` have upper blocks
+  `-½ σ_j`, `-(i/2) σ_j`, and `π′(A_j)`, `π′(B_j)` have upper blocks `-(i/2) σ_j`, `0`. Problem 2 of
   section B.18 (p. 553) poses `so(4, ℂ) = sl(2, ℂ) ⊕ sl(2, ℂ)` and its real subalgebras as a
   problem. **Statements 1, 2, 5 and 7(a).**
 - **S3. D. K. Wise, "MacDowell–Mansouri gravity and Cartan geometry", Class. Quantum Grav. 27
@@ -334,18 +400,21 @@ is said. Section numbers of Woit's book are those of the author's draft that was
 - **S5. K. Krasnov, "Plebański formulation of general relativity: a practical introduction",
   Gen. Relativ. Gravit. 43 (2011) 1–15,
   [DOI 10.1007/s10714-010-1061-x](https://doi.org/10.1007/s10714-010-1061-x)**, read as
-  arXiv:0904.0423v2 (p. 4, equations (1), (4), (5)): the Hodge dual on bivectors, its square
+  arXiv:0904.0423v2 (p. 3, p. 4 of the PDF, equations (1), (4), (5)): the Hodge dual on bivectors, its square
   `-1`, self-dual and anti-self-dual bivectors and their projectors. Background for statements 4
   and 5.
 - **S6. G. Ólafsson and R. Quiroga-Barranco, "On low-dimensional manifolds with isometric
   SO₀(p, q)-actions", Transform. Groups 17 (2012) 835–860,
   [DOI 10.1007/s00031-012-9194-5](https://doi.org/10.1007/s00031-012-9194-5)**, read as
-  arXiv:1003.0704v2. Remark A.10 (p. 21 of the arXiv version): the invariant bilinear forms on
+  arXiv:1003.0704v2. Remark A.10 (pp. 21–22 of the arXiv version): the invariant bilinear forms on
   `so(2, 2) ≃ so(2, 1) × so(2, 1)` are the combinations of the Killing forms of the factors; for
   the realification of a simple complex Lie algebra with Killing form `K` and complex structure
   `J`, the form `K(X, J Y)` is invariant and is not a multiple of `K`, and by Schur's lemma the
-  invariant bilinear forms are the combinations `a K + b K(·, J ·)`. **Statement 6**, and
-  statement 7(b) in the form `so(2, 1) × so(2, 1)`.
+  invariant bilinear forms are the combinations `a K + b K(·, J ·)`. Lemma A.1 (p. 19) has
+  `so(3, 1) ≃ sl(2, ℂ)_ℝ`; Remark A.2 (p. 19) says that `so(2, 2) ≃ sl(2, ℝ) × sl(2, ℝ)` is not
+  simple; p. 20 has `so(2, 1) ≃ sl(2, ℝ)`; p. 9 says that `so(p, q)` is simple when `p + q ≥ 4`
+  and `(p, q) ≠ (2, 2)`. **Statements 1, 2, 6 and 7(b)**, and the simplicity used in statement
+  7(c), (d).
 - **S7. K. Francis-Staite and T. Leistner, "Conformal properties of indefinite bi-invariant
   metrics", Transform. Groups 26 (2021) 859–892,
   [DOI 10.1007/s00031-020-09561-9](https://doi.org/10.1007/s00031-020-09561-9)**, read as
@@ -353,14 +422,15 @@ is said. Section numbers of Woit's book are those of the author's draft that was
   algebra, either its complexification is simple and the invariant symmetric bilinear forms are
   the multiples of the Killing form, or it is a complex simple Lie algebra regarded as real and
   they form a plane spanned by the real and the imaginary part of the complex Killing form. The
-  sentence after the proposition adds that simple Lie algebras admit no invariant skew-symmetric
-  bilinear form. The four references that sentence cites were not read. **Statement 6**, for
+  paragraph after the proposition adds that simple Lie algebras admit no invariant skew-symmetric
+  bilinear form. The four references that paragraph cites were not read. **Statement 6**, for
   symmetric forms.
 - **S8. D. Tong, lecture notes (University of Cambridge)**: *Electromagnetism* (Lent 2015),
   p. 113, equation (5.25), and p. 127; *Gauge Theory* (2018), §1.2, p. 10, equation (1.11). The
   two Lorentz-invariant quadratic expressions in a field strength and its dual, and the names
-  kinetic (Maxwell) term and theta term. Source of the naming remark in the docstring of
-  statement 6 only.
+  Maxwell term and theta term. Source of the naming remark in the opening of this README
+  and in the description in `formalization.yaml` only; the docstring of statement 6 uses the general
+  name "kinetic term", which these pages do not print.
 - **S9. Physics 251, Problem Set 4, Spring 2026** (University of California, Santa Cruz; 4 pp.,
   `scipp-legacy.pbsci.ucsc.edu/~haber/ph251/groups26_4.pdf`; the file does not name its author).
   Problem 1 asks in part (a) to work out `so(4)` and verify `so(4) ≅ so(3) ⊕ so(3)`, and in part
@@ -368,8 +438,12 @@ is said. Section numbers of Woit's book are those of the author's draft that was
 
 How the statements follow where the printed sentence is not the statement:
 
-- **The formula of statements 1 and 2.** No source that was opened prints the map
-  `X ↦ -½ Σ_k (β_k + i θ_k) σ_k`. It is the derivative of Woit's action (40.4) of `SL(2, ℂ)` on
+- **The formula of statements 1 and 2.** Woit, §41.2 (p. 441), prints the map
+  `X ↦ -½ Σ_k (β_k + i θ_k) σ_k` on generators, as the upper block of the representation `π′` of
+  `so(3, 1)`: `π′(k_j)` has upper block `-½ σ_j` and `π′(l_j)` has `-(i/2) σ_j`. Woit's `k_j`, `l_j`
+  (§40.2, `j = k + 1`) are `boostEnd k` and `rotEnd (k + 1) (k + 2)` here, with the time index moved
+  from the beginning to the end (a comparison made for this entry); that the map is an
+  isomorphism is not stated there. It is also the derivative of Woit's action (40.4) of `SL(2, ℂ)` on
   Hermitian matrices, with the opposite sign for the boosts: differentiating (40.4) sends a boost
   to `+½ σ` and a rotation to `-(i/2) σ` (a computation made for this entry, not a printed
   sentence), and this entry sends a boost to `-½ σ_k`. The two isomorphisms differ by the automorphism `X ↦ −X*` of `sl(2, ℂ)` over `ℝ`, which is conjugate-linear; with Woit's sign `H` would be multiplication by `i` (a computation made for this entry, not formalized).
@@ -382,16 +456,18 @@ How the statements follow where the printed sentence is not the statement:
   in S6 that the second form is not a multiple of the Killing form.
 - **Statement 8** was not located in a source; it holds by a count of dimensions (the bilinear forms on `L` have dimension 36 and the forms of statement 6 are a plane). **Statement 9**: the exercise is Hall's, the example is this entry's.
 
-Besides the formula of statements 1 and 2 (the bullet above), three things were not found printed in the sources read:
+Two things were not found printed in the sources read:
 
 1. the clause of statement 4 that the isomorphism of statement 2 carries `H` to multiplication by
    `-i` (it follows from the values on the six generators in statements 2(c) and 4(b), by
-   linearity);
-2. part (b) of statement 7 with `sl(2, ℝ)` in place of `so(2, 1)` (S6 has
-   `so(2, 2) ≃ so(2, 1) × so(2, 1)` and S2 has `Spin(2, 2) = SL(2, ℝ) × SL(2, ℝ)` for the groups;
-   the classical isomorphism of `so(2, 1)` with `sl(2, ℝ)` is not in the pages read);
-3. parts (c) and (d) of statement 7 (`sl(2, ℂ)` is simple as a real Lie algebra, case (2) of the
-   proposition in S7, and the two other algebras are products).
+   linearity; compare S2, §41.2, p. 441, where `π′(A_j)` and `π′(B_j)` have upper blocks
+   `-(i/2) σ_j` and `0`);
+2. parts (c) and (d) of statement 7. Each follows in one step from printed sentences:
+   `so(3, 1)` is simple and `so(3, 1) ≃ sl(2, ℂ)_ℝ` (S6, p. 9 and Lemma A.1), while
+   `so(2, 2) ≃ sl(2, ℝ) × sl(2, ℝ)` is not simple (S6, Remark A.2) and neither is
+   `so(4) = so(3) × so(3)` (S2, §21.2).
+
+Part (b) of statement 7 with `sl(2, ℝ)` is printed in S6, Remark A.2 (p. 19).
 
 Not opened: the Springer editions of S1 and S2; the references [1], [8], [21], [23] of S7 (among
 them Milnor 1976 and Medina 1985); Sexl and Urbantke; Penrose and Rindler; Landau and Lifshitz;
@@ -537,7 +613,7 @@ statement 3), `:208-212`, `:214-215`, `:286`, `:300`; `YM/Gauge/Lie.lean:26`, `:
 `:126`, `:159`; `YM/Next/BOUNDARY/Derived.lean:21` (`tangent`), `:23`, `:25`, `:43`
 (`tangent_parts`), `:154`, `:160` (`boost_bracket`); `YM/Space/Orthogonal.lean:131-132`, `:146`
 (one-parameter groups of rotations of Euclidean four-space, one direction). Read on
-2026-11-11 and 2026-11-13 at that commit: `ProperLorentz` occurs in `PublicTheory.lean` only
+2026-11-11 and 2026-11-13 at that commit: among the Lean files, `ProperLorentz` occurs in `PublicTheory.lean` only
 (lines 209, 215, and through `PoincareCoordinates` line 235); no `LieSubalgebra`, `LieAlgebra`
 or `LieRing` occurs in the repository; the infinitesimal Lorentz elements used internally are
 the predicate `tangent` (`YM/Next/BOUNDARY/Derived.lean:21`), and no declaration relating it to
@@ -651,6 +727,8 @@ lake env lean Axioms.lean
 lake comparator           # needs bubblewrap; see BUILD.txt for the local run
 ```
 
+For this record every build used an existing Mathlib build at the pin: `lake exe cache get` was not run, and the clean-clone rebuild of 2026-11-14 linked the same built packages (BUILD.txt).
+
 `BUILD.txt` records the commands that were run, their exit codes and job counts, and what was not
 run.
 
@@ -668,12 +746,15 @@ run.
 - **Literature and prior formalization.** The search reported above was made by an AI session
   and then checked by a separate AI session, which re-opened every declaration and every source
   and corrected five omissions, each in the direction of more prior work.
+- **Re-check.** On 2026-11-13 and 2026-11-14 separate AI sessions read the assembled package: a
+  reading on the registry's published review prompts, a rebuild from a clean clone, a re-check of
+  the statements, a check of each citation at its source and a specialist reading. Their
+  corrections were applied.
 - **Builds.** All builds, the Comparator run (without its sandbox, which is not available on
   macOS), the axiom printout, the structural-hash comparison of the statements and the count
   check were run on the author's machine; `BUILD.txt` records them and what was not run.
 - **The author's review.** The author's own review of the nine statements against their
-  informal descriptions is hers to record and is **not yet recorded** in this file or in
-  `formalization.yaml`.
+  informal descriptions is not recorded in this file or in `formalization.yaml`.
 - Not peer-reviewed.
 
 ## Licence
