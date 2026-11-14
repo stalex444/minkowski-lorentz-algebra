@@ -1,0 +1,98 @@
+Lorentz Lie algebra of four-dimensional Minkowski space (a Lean 4 formalization)
+Licence of this repository: Apache License, Version 2.0 (see LICENSE).
+
+1. Text carried from the public statement of the Yang-Mills release
+
+Challenge.lean and ReleaseAdapter/Carried.lean each contain, between the comment markers
+BEGIN CARRIED and END CARRIED, copies of lines 11, 13-14, 51-55, 57, 59-60, 64, 66, 209-212 and
+215 of the file PublicTheory.lean, carried from the public statement of the Yang-Mills release:
+repository https://github.com/yang-mills-group/OpenAI-YM-20261028, commit
+3456e5e75cf8d4cd558955a5c7638fba2d68f464, licensed under the Apache License, Version 2.0. The
+carried block consists of exactly those lines, blank lines and the closing line "end YangMills".
+The lines between the carried ones are omitted, and the source file is not imported. The
+toolchain of the source is Lean 4.32.0; the copies are elaborated here at Lean 4.35.0-rc2.
+
+The NOTICE file carried from that release, at that commit, is reproduced unaltered between the
+two marker lines below. Its second paragraph says that interfaces and portions of the proof
+adapters in PublicTheory.lean and four other files adapt earlier challenge and solution sources
+at revision eea94292e31734d46498be7836d7e8fa50ca8cd2. Those earlier sources were not read for
+this repository, and whether the carried lines are among what was adapted was not determined.
+The other paragraphs of the carried NOTICE concern files from which nothing is carried here;
+they are kept so that the notice is reproduced whole.
+
+----- BEGIN NOTICE carried from OpenAI-YM-20261028 at 3456e5e75cf8d4cd558955a5c7638fba2d68f464 -----
+Wilson Yang–Mills source distribution
+Project license: Apache License, Version 2.0 (see LICENSE).
+
+The public gauge, Wightman and OPE interfaces and portions of the proof adapters
+in PublicTheory.lean, ChallengeSpec.lean, PublicView.lean, WilsonBridge.lean and
+HierarchyBridge.lean adapt earlier challenge and solution sources at revision
+eea94292e31734d46498be7836d7e8fa50ca8cd2. Changes include the explicit
+Wilson limit, geometric Poincaré action, shared spectator hierarchy and the
+projection of the detailed construction.
+
+YM/Next/STATIONARY/OneLoop/WilsonVertices.lean, lemma upsurge, uses the
+ordered-partition simplification from iteratedDerivWithin_vcomp_three in
+Mathlib/Analysis/Calculus/IteratedDeriv/FaaDiBruno.lean. The surrounding
+statement and proof apply it to the three-direction Wilson jet.
+Copyright (c) 2025 Yury Kudryashov. All rights reserved.
+Released under Apache License 2.0. The license is included in
+third_party_licenses/Mathlib-LICENSE.txt.
+https://github.com/leanprover-community/mathlib4/blob/81a5d257c8e410db227a6665ed08f64fea08e997/Mathlib/Analysis/Calculus/IteratedDeriv/FaaDiBruno.lean#L99-L105
+
+YM/Laurent/Rune.lean uses the three local normalized Haar measure instances
+for UnitAddCircle from Mathlib/Analysis/Fourier/AddCircleMulti.lean. They are
+used in the Laurent Fourier coefficient calculations, with formatting changes.
+Copyright (c) 2023 David Loeffler. All rights reserved.
+Released under Apache License 2.0. See third_party_licenses/Mathlib-LICENSE.txt.
+https://github.com/leanprover-community/mathlib4/blob/81a5d257c8e410db227a6665ed08f64fea08e997/Mathlib/Analysis/Fourier/AddCircleMulti.lean#L27-L38
+
+YM/Work/F05/PiDensity.lean, private lemma lprodFin, adapts the finite-
+coordinate decomposition of integral_fin_nat_prod_eq_prod from
+Mathlib/MeasureTheory/Integral/Pi.lean to nonnegative extended-real
+lintegrals with explicit measurability hypotheses. The project modification
+also uses that result to prove the finite-index and product-density lemmas
+lprod and piDensity.
+Copyright (c) 2023 Xavier Roblot. All rights reserved.
+Author: Xavier Roblot.
+Released under Apache License 2.0. See third_party_licenses/Mathlib-LICENSE.txt.
+https://github.com/leanprover-community/mathlib4/blob/81a5d257c8e410db227a6665ed08f64fea08e997/Mathlib/MeasureTheory/Integral/Pi.lean#L77-L112
+
+The following modules adapt parts of the coordinate marginal proof in
+Mathlib/Probability/Distributions/Gaussian/Multivariate.lean,
+measurePreserving_restrict₂_multivariateGaussian, to the project’s finite
+coordinate maps. The warp_cloud proof uses the mean calculation.
+  YM/AnalyticBridge/ANNULUS_RATIO_INSERTIONS/Brume.lean (tours)
+  YM/AnalyticBridge/GAUSSIAN_FIELD_ALIGNMENT/Completed.lean (marginal)
+  YM/AnalyticBridge/MARGINAL_MULTIPLIER_3B1D/Marginal.lean (paid_projection)
+  YM/AnalyticBridge/LOCAL_GAUSSIAN_MULTIPLIER/Marginal.lean (look_law)
+  YM/AnalyticBridge/SHARP_NORMALIZED_TAIL/Projection.lean (wide_projection)
+  YM/AnalyticBridge/GAUSSIAN_FIELD_ALIGNMENT/Agreements.lean (warp_cloud)
+Copyright (c) 2026 Rémy Degenne. All rights reserved.
+Authors: Rémy Degenne and Etienne Marion.
+Released under Apache License 2.0. See third_party_licenses/Mathlib-LICENSE.txt.
+https://github.com/leanprover-community/mathlib4/blob/81a5d257c8e410db227a6665ed08f64fea08e997/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L247-L274
+
+See THIRD_PARTY.md for the pinned build dependencies and their licenses.
+This notice supplies attribution.
+----- END NOTICE carried from OpenAI-YM-20261028 -----
+
+2. This repository
+
+Copyright (c) 2026 Stephanie Alexander
+
+The copyright line above is for this package's own files: Challenge.lean, Solution.lean,
+Axioms.lean, LorentzLie.lean and the modules under LorentzLie/, ReleaseAdapter.lean and the
+modules under ReleaseAdapter/ (apart from the carried lines described in section 1), and the
+documentation and metadata files.
+
+The modules under ArithmeticLorentz/ are unchanged copies of the files of the same names in
+https://github.com/stalex444/one-complex-place-lorentz-group-galois-boost at commit
+ec70bded79e51b31f907b085f71756a79df0fe33, and the module GravityScreening/SignedLieGeneration.lean
+is an unchanged copy of the file of the same name in
+https://github.com/stalex444/pdt-em-source-selection at commit
+1c9ba637b5e664a88b6487d463515587616476e1.
+
+The modules under ArithmeticLorentz/ and GravityScreening/ were published by the same author
+under the MIT licence in the repositories named there and are distributed in this package by
+their author under the Apache License, Version 2.0.

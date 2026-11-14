@@ -1,0 +1,17 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "MinkowskiLorentz.so'_one_three_lieEquiv_sl2C",
+    "MinkowskiLorentz.lorentzAlgebra_lieEquiv_sl2C",
+    "MinkowskiLorentz.mem_lorentzAlgebra_iff_exp",
+    "MinkowskiLorentz.hodgeEnd_complexStructure",
+    "MinkowskiLorentz.complexification_lieEquiv",
+    "MinkowskiLorentz.invariant_bilinForm_iff",
+    "MinkowskiLorentz.definite_split_signature",
+    "MinkowskiLorentz.exists_bilinForm_not_trace_form",
+    "MinkowskiLorentz.exists_exp_mem_not_mem_lorentzAlgebra"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

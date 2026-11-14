@@ -1,0 +1,350 @@
+minkowski-lorentz-algebra -- build record, 2026-11-13 (local package; nothing pushed, registered or sent)
+STATUS: assembled and finished locally. The Lean content below is complete and checked. The title and the
+  classification in formalization.yaml and README.md are the author's, adopted on 2026-11-13. The repository
+  will be github.com/stalex444/minkowski-lorentz-algebra (not yet created). Open items, all the author's: her
+  own review of the nine statements (review.status in formalization.yaml and the section "Production and
+  review" of README.md), the acknowledgements and the automation values (model, wall time, spend);
+  formalization.yaml carries PROPOSED values for the last two, marked as such.
+
+Toolchain: leanprover/lean4:v4.35.0-rc2
+  lean --version: Lean (version 4.35.0-rc2, arm64-apple-darwin24.6.0, commit 11acb17ec6b07a8f9e9173e6845197929540936b, Release)
+Mathlib rev: 065356127b1dc0016f66b7283ce0ce2c4055aa55
+  lake-manifest.json: package name minkowski_lorentz_algebra; Mathlib and its dependencies at the revisions of
+    the author's other entries at this pin (the file is identical to theirs except for the package name).
+  .lake/packages: a symbolic link to the built packages of another entry of the author's at the same pin; not
+    part of the repository. Not run anywhere: lake update, lake exe cache get, lake clean.
+
+1. Sources
+  The library modules were copied from commit 864b13a9c1272e0791019c831403368e946486b2 of the author's working
+  package for this library (a local repository, not published), with `git archive`, not from its working tree:
+    LorentzLie/{Defs,Centroid,RealForms,Complexification,Landings,Controls,NumberField,FormCentroid}.lean,
+    ReleaseAdapter/{Carried,Landing,CentroidDefs,Centroid}.lean and ReleaseAdapter.lean,
+    ArithmeticLorentz/{Defs,Counting,Arithmetic,Qubit,PlaceLink,Boost,RegisterBridge}.lean,
+    GravityScreening/SignedLieGeneration.lean, lean-toolchain.
+  22 files; each is byte-identical to the file at that commit (at assembly: sha256 against a second
+  extraction of the archive, 0 mismatches; git blob id against `git rev-parse 864b13a9:<path>`, 0
+  mismatches). No copied module was changed, at assembly or afterwards: the sha256 of each of the 21 copied
+  .lean modules in the list at the end of this file is the one recorded at assembly.
+  Removed after assembly (they had been copied and are outside the import closure of Solution.lean):
+    ArithmeticLorentz/HermN.lean, GravityScreening/TraceFreeResponseUniqueness.lean and the root module
+    ArithmeticLorentz.lean. lakefile.toml was changed accordingly: the library ArithmeticLorentz has no root
+    module and is given by the glob "ArithmeticLorentz.+".
+  Not copied from the working package: LorentzLie/FormDefs.lean, LorentzLie/QuarticField.lean,
+  HermiteCompositum/*, and the later module of that package on the two halves.
+  Written for this package: LorentzLie.lean (the root; it imports exactly the eight LorentzLie modules above),
+  lakefile.toml, lake-manifest.json (package name only), Challenge.lean, Solution.lean, Axioms.lean,
+  comparator.json and the metadata files.
+  Earlier public copies of two of the libraries (git blob ids compared at assembly, all equal):
+    ArithmeticLorentz/* (the 7 files here) =
+      github.com/stalex444/one-complex-place-lorentz-group-galois-boost at ec70bded79e51b31f907b085f71756a79df0fe33
+    GravityScreening/SignedLieGeneration.lean =
+      github.com/stalex444/pdt-em-source-selection at 1c9ba637b5e664a88b6487d463515587616476e1
+  Import closure of Solution.lean inside the package (21 modules, computed from the import lines): Solution;
+    LorentzLie.{Defs,Centroid,RealForms,Complexification,Landings,Controls,NumberField,FormCentroid};
+    ReleaseAdapter.{Carried,Landing,CentroidDefs,Centroid};
+    ArithmeticLorentz.{Defs,Counting,Arithmetic,Qubit,PlaceLink,Boost,RegisterBridge};
+    GravityScreening.SignedLieGeneration.
+  In the package and not in that closure: the two library roots (LorentzLie, ReleaseAdapter), Challenge and
+    Axioms. Challenge.lean imports Mathlib only.
+
+2. Builds (from the package root; PATH = the toolchain's bin directory, then elan's)
+  At assembly, 2026-11-13 from 13:25 UTC, each target was built from its sources, one at a time:
+    lake build ArithmeticLorentz   -> Build completed successfully (8940 jobs), exit 0, 55 s
+    lake build GravityScreening    -> Build completed successfully (3105 jobs), exit 0, 6 s
+    lake build LorentzLie          -> Build completed successfully (8950 jobs), exit 0, 58 s
+    lake build ReleaseAdapter      -> Build completed successfully (8951 jobs), exit 0, 21 s
+    lake build Challenge           -> Build completed successfully (8932 jobs), exit 0, 8 s
+    lake build Solution            -> Build completed successfully (8952 jobs), exit 0, 13 s
+  After the last edit to any file of the package (the edits of section 3, the removal of the three files and
+  the change to lakefile.toml), 2026-11-13 from 14:31 UTC, each target again, one at a time:
+    lake build ArithmeticLorentz   -> Build completed successfully (8938 jobs), exit 0, 4 s
+    lake build GravityScreening    -> Build completed successfully (3104 jobs), exit 0, 3 s
+    lake build LorentzLie          -> Build completed successfully (8950 jobs), exit 0, 5 s
+    lake build ReleaseAdapter      -> Build completed successfully (8951 jobs), exit 0, 4 s
+    lake build Challenge           -> Build completed successfully (8932 jobs), exit 0, 10 s
+    lake build Solution            -> Build completed successfully (8952 jobs), exit 0, 15 s
+    lake build (defaultTargets ArithmeticLorentz, GravityScreening, LorentzLie, ReleaseAdapter, Challenge,
+      Solution) -> Build completed successfully (8960 jobs), exit 0.
+  In this second round the library modules, whose sources had not changed, were taken from the build of the
+  assembly round; Challenge.lean and Solution.lean were compiled again.
+  Review-fix round (section 3, edits to docstrings and prose only), after its last edit, 2026-11-13 from
+  17:20 UTC, one at a time:
+    lake build Challenge           -> Build completed successfully (8932 jobs), exit 0
+    lake build Solution            -> Build completed successfully (8952 jobs), exit 0
+  Warnings, all of them (the same in the review-fix round):
+    - the 9 'declaration uses sorry' warnings of Challenge.lean (the compared placeholders; in the review-fix
+      round at lines 365, 385, 403, 420, 441, 464, 484, 500, 511); Challenge.lean compiles alone (its build target has 8932 jobs: Mathlib
+      and the Challenge) with these nine warnings and nothing else;
+    - GravityScreening/SignedLieGeneration.lean:118:6: `if_true` has been deprecated (a copied module);
+    - ReleaseAdapter/Landing.lean:404:0: an automatically included section variable is unused in
+      `ReleaseAdapter.mixedIso_apply` (a copied module).
+    GravityScreening/SignedLieGeneration.lean also prints the axioms of two of its own theorems when built (it
+    ends with #print axioms commands); each line shows [propext, Classical.choice, Quot.sound].
+  No warning in Solution.lean.
+  Token counts (whole-word grep, per file; Challenge.lean and Solution.lean after the review-fix round):
+    Challenge.lean                                     lines=  517 sorry=9 admit=0 native_decide=0 axiom=0
+    Solution.lean                                      lines=  867 sorry=0 admit=0 native_decide=0 axiom=0
+    Axioms.lean                                        lines=   45 sorry=0 admit=0 native_decide=0 axiom=0
+    LorentzLie.lean                                    lines=   16 sorry=0 admit=0 native_decide=0 axiom=0
+    LorentzLie/Centroid.lean                           lines=  636 sorry=0 admit=0 native_decide=0 axiom=0
+    LorentzLie/Complexification.lean                   lines= 1054 sorry=0 admit=0 native_decide=0 axiom=0
+    LorentzLie/Controls.lean                           lines=  606 sorry=0 admit=0 native_decide=0 axiom=0
+    LorentzLie/Defs.lean                               lines=  359 sorry=0 admit=0 native_decide=0 axiom=0
+    LorentzLie/FormCentroid.lean                       lines=  630 sorry=0 admit=0 native_decide=0 axiom=0
+    LorentzLie/Landings.lean                           lines=  560 sorry=0 admit=0 native_decide=0 axiom=0
+    LorentzLie/NumberField.lean                        lines=  299 sorry=0 admit=0 native_decide=0 axiom=0
+    LorentzLie/RealForms.lean                          lines= 1248 sorry=0 admit=0 native_decide=0 axiom=0
+    ReleaseAdapter.lean                                lines=   10 sorry=0 admit=0 native_decide=0 axiom=0
+    ReleaseAdapter/Carried.lean                        lines=  252 sorry=0 admit=0 native_decide=0 axiom=0
+    ReleaseAdapter/Centroid.lean                       lines=  490 sorry=0 admit=0 native_decide=0 axiom=0
+    ReleaseAdapter/CentroidDefs.lean                   lines=  207 sorry=0 admit=0 native_decide=0 axiom=0
+    ReleaseAdapter/Landing.lean                        lines=  969 sorry=0 admit=0 native_decide=0 axiom=0
+    ArithmeticLorentz/Arithmetic.lean                  lines=   74 sorry=0 admit=0 native_decide=0 axiom=0
+    ArithmeticLorentz/Boost.lean                       lines=  605 sorry=0 admit=2 native_decide=0 axiom=0
+    ArithmeticLorentz/Counting.lean                    lines=  159 sorry=0 admit=0 native_decide=0 axiom=0
+    ArithmeticLorentz/Defs.lean                        lines=  269 sorry=0 admit=0 native_decide=0 axiom=0
+    ArithmeticLorentz/PlaceLink.lean                   lines=  254 sorry=0 admit=0 native_decide=0 axiom=0
+    ArithmeticLorentz/Qubit.lean                       lines=  172 sorry=0 admit=0 native_decide=0 axiom=0
+    ArithmeticLorentz/RegisterBridge.lean              lines=  960 sorry=0 admit=0 native_decide=0 axiom=0
+    GravityScreening/SignedLieGeneration.lean          lines=  152 sorry=0 admit=0 native_decide=0 axiom=0
+    The two hits for "admit" are the English verb in two docstrings of ArithmeticLorentz/Boost.lean
+    (lines 46 and 355), not the tactic.
+  Every .lean file begins with `module`; the largest has 1248 lines (LorentzLie/RealForms.lean).
+  Challenge.lean is 517 lines and 34,582 bytes: under the registry's limits (1,000 lines, 100 KiB, which are
+  errors), over its 300-line and its 32 KiB thresholds (which are one warning, "the preferred 32 KiB /
+  300-line review surface"). The opening docstring is 215 lines.
+
+3. Challenge.lean: where its text comes from
+  Starting point: the statement reviewer's compiled patched copy (sha256
+  31c7dc2ba3a293bb91136e5c005552705a90f97de5ede061b4baa4c9bcf8ddec), which already applies the reviewer's
+  replacement texts for the findings on the definition spinOf (the blocking one), the meaning of the carried
+  copies, the docstring of hodgeMatrix, statements 1 and 2(b) being one isomorphism, the attribute line, the
+  Pauli index and "carried type". Checked by script at assembly: each of the reviewer's six fenced
+  replacement texts is present verbatim, and "carried set" occurs nowhere.
+  Two edits were made to that copy, both to docstrings:
+    (i) in the opening docstring, before the paragraph then called "Application" (since the review-fix round
+        "Also proved in the library, not compared: Minkowski space from a number field"), four paragraphs
+        were inserted: the
+        literature ("Statements 1–7 and 9 are classical ..."), "Prior formalization (search of 2026-11-13)",
+        "Not formalized" and "Sources and proof". They are the paragraphs given by the check of the
+        literature and prior-formalization search, with one sentence changed: that check had left the
+        one-line account of the proofs unverified against the library, and after reading the library proofs
+        it was replaced by the sentences "The isomorphisms are explicit linear maps of skew matrices ...
+        proved by simplicity.";
+    (ii) in the docstring of statement 6 (invariant_bilinForm_iff), the closing remark in parentheses was
+        replaced by the text "(For `X` in `L` and the antisymmetric matrix `F = η X`, ... The reading of `X`
+        as a two-form is not formalized.)".
+  Review-fix round (2026-11-13): three reviews of the finished package (registry checks, a cold reader, a
+    prose gate) and a second reader of the resulting diff gave replacement texts, which were applied to
+    docstrings and prose only: in Challenge.lean the opening docstring (conventions, scope, literature,
+    prior formalization, sources and proof, the renamed paragraph), the docstring of hodgeMatrix and the
+    docstrings of statements 1, 3, 6 and 8; in README.md and formalization.yaml the corresponding text.
+    Solution.lean was generated again (section 4). With comments removed and whitespace normalised,
+    Challenge.lean and Solution.lean are identical to their text before the round (script comparison), so
+    no statement, definition or proof placeholder changed; the structural hashes of section 4 confirm it.
+  Carried block: the text between BEGIN CARRIED and END CARRIED is byte-identical in Challenge.lean and in
+  ReleaseAdapter/Carried.lean (863 bytes), and its 19 non-blank lines are lines 11, 13-14, 51-55, 57, 59-60,
+  64, 66, 209-212, 215 of PublicTheory.lean in a checkout of github.com/yang-mills-group/OpenAI-YM-20261028
+  at commit 3456e5e75cf8d4cd558955a5c7638fba2d68f464, followed by `end YangMills` (script comparison,
+  2026-11-13).
+  The same older remark as in (ii) is still in the docstring of the library theorem
+  ReleaseAdapter.lorentzAlgebra_invariant_form (ReleaseAdapter/Centroid.lean, lines 342-344): copied library
+  modules were not edited.
+
+4. Statement identity, Challenge vs Solution (9 theorems; 11 carried declarations; 11 definitions of the entry)
+  Solution.lean is generated from Challenge.lean by a script kept outside the repository: it copies the text
+    from `namespace MinkowskiLorentz` to the end (the entry's definitions and the nine statements, with their
+    docstrings), inserts the helper declarations (namespace MinkowskiLorentz.Bridge) after the definitions,
+    and replaces each placeholder by a proof from the library. It was run again after the edits of section 3,
+    so the docstring of each compared statement is the same text in the two files. The opening docstring of
+    Solution.lean was changed in one sentence (the provenance of the modules under ArithmeticLorentz/ and
+    GravityScreening/, after the removal of the three files).
+  Text comparison at assembly: the entry's definitions section is byte-identical in the two files (5576
+    bytes); the nine docstring-plus-signature blocks are identical and in the same order, which is the
+    comparator order.
+  The carried block is NOT repeated in Solution.lean: the library module ReleaseAdapter/Carried.lean, which
+    the Solution imports, declares it, so a second copy would be a duplicate declaration. The Solution
+    therefore receives the carried constants through an import. Section 5 records that the Comparator accepts
+    this.
+  Structural hashes (the statement reviewer's tool: Expr.hash of the type of each of the nine statements and
+    of the type and value of every constant of the namespaces MinkowskiLorentz and YangMills they reach; 42
+    lines per file; two compiles, both exit 0), after the last edit:
+    (1) Challenge.lean against the reviewer's patched Challenge: identical (all 42 lines);
+    (2) Solution.lean against the reviewer's patched bridge: identical (all 42 lines);
+    (3) Challenge.lean against Solution.lean: the nine statement types and the type and value of every
+        definition are equal. The only difference is in two auxiliary theorems made by the carried block,
+        YangMills.ProperLorentz._proof_1 and YangMills.spatial._proof_1: their types are equal, and in the
+        Solution they are imported, so their bodies are not visible to the tool there.
+    The 42 digests are the same as before the edits of section 3: no type of a compared statement changed.
+    Run again after the last edit of the review-fix round (2026-11-13, 17:24 UTC): (1) and (2) identical,
+    (3) the same two auxiliary theorems only; HASH CHECK: PASS.
+  Count gate (a script kept outside the repository; it exits 1 on any mismatch): 9 theorem declarations and 9
+    placeholders in Challenge.lean; 9 theorem_names in comparator.json, in the Challenge's order; the count
+    sentence of the Challenge docstring ("This entry compares exactly nine statements.") and its 9 numbered
+    items; the count sentence and 9 numbered items of README.md; 9 alignment entries, the count word of
+    status.scope and of project.description in formalization.yaml; the nine names proved in Solution.lean.
+    PASS, after the last edit to README.md and formalization.yaml. At assembly a copy with the README
+    sentence changed to "ten" was reported FAIL. In the review-fix round the README lead was rewritten and
+    its count sentence is now "This entry proves nine statements"; the gate's README pattern was widened to
+    accept that sentence as well as "compares exactly ... statements". PASS again after the last edit of
+    that round (2026-11-13, 17:24 UTC), nine in each of the ten places.
+
+5. Comparator
+  lake comparator --inadvisably-no-sandbox (from the package root; nanoda_bin on PATH from the toolchain's bin
+    directory), 2026-11-13, finished 17:23 UTC, after the last edit of the review-fix round to Challenge.lean
+    and Solution.lean. Inputs:
+      659bf7c92a4195addff383e3d9616a75817a6d89aeadecd5bfc24377ba7ec667  Challenge.lean
+      c87a7af9de6d58d0a2daa104ef98ff0c67bb83f0ccd9fe05adeff3720884dca5  Solution.lean
+      1a880e0c62af42a92e004af72158eb6961e2a616c435d63e1f7b4c710cfec5be  comparator.json
+    Closing lines, verbatim:
+      Running nanoda kernel on solution
+      nanoda kernel accepts the solution
+      Running Lean default kernel on solution
+      Lean default kernel accepts the solution
+      Your solution is okay!
+    exit 0. Before them: the Challenge and Solution builds (8932 and 8952 jobs, the warnings listed in
+    section 2), and the export of the same 42 names (Quot, Quot.mk, Quot.lift, Quot.ind, the nine
+    MinkowskiLorentz statements, propext, Quot.sound, Classical.choice, ...) from Challenge and from
+    Solution. The run before the review-fix round, on the earlier Challenge.lean (626725c0...) and
+    Solution.lean (03ee160b...) and the same comparator.json, ended with the same five lines, exit 0.
+  The question the run at assembly had to answer: does the Comparator accept the carried constants (namespace
+    YangMills) when they reach the Solution through an import, not through a repeated block? It does. No
+    change to Challenge.lean, to the library or to the layout was needed for it.
+  Negative control, run at assembly in a scratch copy of the package (not part of the repository): with the
+    Challenge as it was before the reviewer's correction of spinOf (sha256
+    5f6ed6e20b6e81a22a10dc1565045718c81a5d1f0adbb74e66656c790a7bb9d2) and the Solution generated from it, the
+    same command ends with "error: Const does not match between challenge and target
+    'MinkowskiLorentz.spinOf'", exit 1. So the Comparator compared the value of a definition that the
+    statements reach and rejected a difference in it; the acceptance above is not for want of a comparison.
+    The negative control was not repeated after the docstring edits.
+  No bubblewrap sandbox on macOS (hence --inadvisably-no-sandbox).
+  NOT RUN: the registry's own submission workflow (the repository github.com/stalex444/minkowski-lorentz-algebra
+    does not exist yet and no preflight was dispatched); a build from a fresh clone with lake exe cache get; the registry's licence detection (its
+    detector is not installed here) and rendering steps; --paranoid.
+
+6. #print axioms (lake env lean Axioms.lean, Axioms.lean importing Solution), after the last edit of the
+   review-fix round (2026-11-13, 17:25 UTC); exit 0; 40 declarations, each [propext, Classical.choice,
+   Quot.sound]:
+  'MinkowskiLorentz.so'_one_three_lieEquiv_sl2C' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'MinkowskiLorentz.lorentzAlgebra_lieEquiv_sl2C' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'MinkowskiLorentz.mem_lorentzAlgebra_iff_exp' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'MinkowskiLorentz.hodgeEnd_complexStructure' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'MinkowskiLorentz.complexification_lieEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'MinkowskiLorentz.invariant_bilinForm_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'MinkowskiLorentz.definite_split_signature' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'MinkowskiLorentz.exists_bilinForm_not_trace_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'MinkowskiLorentz.exists_exp_mem_not_mem_lorentzAlgebra' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.so'OneThreeEquivSl2C' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.so'EquivEtaSkew' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.etaSkewEquivSl2C' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.finrank_lorentzAlgebra' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.lorentzAlgebraEquivSl2C' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.lorentzAlgebraEquivEtaSkew' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.mem_lorentzAlgebra_iff_exp' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.etaSkewCEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.etaSkewCEquiv_hodgeProj' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.etaSkewEquivSo3Prod' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.etaSkewEquivSl2RProd' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.etaSkew_isSimple' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.minkowskiBilin_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.lorentzHodge' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.lorentzHodge_isBracketCommuting' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.lorentzHodge_lorentzHodge' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.lorentzHodge_lorentzBoost' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.lorentzHodge_lorentzRot' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.lorentzAlgebra_centroid_lorentzHodge' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.lorentzAlgebra_invariant_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.lorentzAlgebra_invariant_form_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.lorentzTraceForm_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.lorentzTraceForm_lorentzHodge_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.exists_bilinForm_ne_smul_lorentzTraceForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.mixedIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.minkowskiSquare_mixedIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.minkowskiSquare_mixedIso_mixedEmbedding' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ReleaseAdapter.exists_mixedSpace_isometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.NumberFieldAux.traceSkewEquivLorentzAlgebra' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.NumberFieldAux.traceSkewEquivLorentzAlgebra_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'LorentzLie.NumberFieldAux.finrank_traceSkew' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+7. Metadata (checks run again after the last edit of the review-fix round, 2026-11-13, 17:25 UTC)
+  formalization.yaml validates against the v0.4 schema (JSON Schema draft-07, 0 errors).
+  The registry contract (scripts.submission_contract.load_formalization_metadata and normalized_provenance at
+    PalomarSubmission 14aa8d6b3c2f14a8540605e37144560b9a00e7e7, a local copy, run with Python 3.11) loads the
+    file and derives result_origin source-based and repository_role substantive-development: nine sources
+    (six with relationship formalizes, three background) and ten related formalizations (five builds-on,
+    five other).
+  project.description: 6,848 characters (limit 10,000). project.name: 150 characters (limit 300).
+  The classification codes, each present in the registry's taxonomy snapshot at that commit, are the
+    author's, adopted on 2026-11-13 (they were proposed at assembly).
+  formalization.yaml has no `repository` field: the registry's CONTRIBUTING.md (section 3.2) says it is
+    omitted when the submitted repository contains the substantive development, as here.
+  LICENSE is byte-identical to the LICENSE file of the checkout named in section 3 (sha256
+    c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4), the Apache License, Version 2.0.
+  NOTICE reproduces the NOTICE file of that checkout byte for byte between two marker lines (3,492 bytes,
+    script comparison at assembly; that part of the file was not changed since) and adds what is carried,
+    from where, the copyright line of this package and the sentence on the modules published earlier under
+    the MIT licence.
+
+8. How the entry was produced
+  2026-11-12 and 13: the library was written with AI assistance, module by module, each against a fixed list
+    of statements and each followed by an AI-assisted review (working records of the author's project, not
+    part of this repository).
+  2026-11-13: the nine compared statements were written in an AI-assisted statement stage (each with a plain
+    reading, the library theorems behind it and a bridging proof), and reviewed by a separate AI-assisted
+    hypothesis-deleting review with compiled probe files and its own exact check script. The review found one
+    blocking difference (the definition spinOf elaborated to different terms in the two files) and gave
+    replacement texts; its patched copy is the starting point of Challenge.lean (section 3).
+  2026-11-13: this package was assembled with AI assistance: sources copied, builds, the Comparator run and
+    its negative control, the hash check, the metadata skeletons.
+  2026-11-13: an AI-assisted search of the literature and of prior formalizations, and a separate AI-assisted
+    check of it that re-opened every declaration and every source (five omissions corrected, each in the
+    direction of more prior work). Nothing was compiled against the other libraries.
+  2026-11-13: the package was finished with AI assistance from that checked search: the four paragraphs of
+    the Challenge docstring and the remark of statement 6 (section 3), README.md, formalization.yaml and
+    NOTICE written; three files outside the import closure removed; builds, Comparator, hash check, count
+    gate and axioms run again.
+  2026-11-13: review-fix round: three AI-assisted reviews of the finished package (registry checks, a cold
+    reader, a prose gate) and an AI-assisted second reading of the resulting diff; their replacement texts
+    applied to docstrings and prose (section 3); builds, Comparator, hash check, count gate, axioms,
+    schema, contract and source check run again.
+  NOT DONE: the author's review of the nine statements.
+
+Files (sha256)
+  659bf7c92a4195addff383e3d9616a75817a6d89aeadecd5bfc24377ba7ec667  Challenge.lean
+  c87a7af9de6d58d0a2daa104ef98ff0c67bb83f0ccd9fe05adeff3720884dca5  Solution.lean
+  10ae9d67037b984c4b0b32c446e60039ad2a3bee182e6301353f0306896dd349  LorentzLie.lean
+  14d194b45449e2293da7a911344e06b3a0dca9c776c0eded807c7aac33dde400  LorentzLie/Centroid.lean
+  f3c1be7fa17f811687892560131bb24f0a708f407d0f0c0113ff49c0e9cfccca  LorentzLie/Complexification.lean
+  3b094c54ac562cc17caa723270471ff0b54d5df387a0c89e30f2770282f028b7  LorentzLie/Controls.lean
+  c82fb497f3c005118d8039a5def4f8e1add293a786b6e295715fec62d24e01b6  LorentzLie/Defs.lean
+  397717c73b3bc2d7ec52e654ac6df31fc8994cb5c4a8ca9d5624340457119364  LorentzLie/FormCentroid.lean
+  8c89124340cb6697445a8ed8155841fe63701db8bf8e0633928b066d15f029bd  LorentzLie/Landings.lean
+  ebe42b0816965a10b96eee0acbd84f06f269a7b3bed4ebdedb32bd5a84a4e720  LorentzLie/NumberField.lean
+  d78466e4b1561a23f09c08f6410fd9403839497a4d6a4feff241bcdd0c584e37  LorentzLie/RealForms.lean
+  6c8bc4781a8bccf02dd2685790159e37c79f5c063cbac5a1650b212c03a216a2  ReleaseAdapter.lean
+  28c73180b0c37dfe36e4d5b5be094d54a93db9f32ea11bc933cc78eedca8102d  ReleaseAdapter/Carried.lean
+  83836a94ec7d2893d5aaf98fd18cda2e69bd7d53d8247f425161e73aec45cfbb  ReleaseAdapter/Centroid.lean
+  353da643a26f2f207ab9effd9f6a026000e35486760ad240fe95b82f80ddfe83  ReleaseAdapter/CentroidDefs.lean
+  a3282462568ec5139e0cc991248926b242a85320a3a008cd534b63a8cc6674f1  ReleaseAdapter/Landing.lean
+  d477155afef792f376ff59cc86c3bad05bf60ea274b26af023b63de6b9de7f12  ArithmeticLorentz/Arithmetic.lean
+  a9475ba826aad51c06d3b63dc93c474c1e406af2d9b52d9f3e82722d4524bbc5  ArithmeticLorentz/Boost.lean
+  a27edc387d128231dfe208580ce4bd0c9f7b3b69cfd327a207b5b7908f2b3a66  ArithmeticLorentz/Counting.lean
+  18f265e7b8e3662078b23684e26b61ee52ce82d947954d51f68589a798a0f4ce  ArithmeticLorentz/Defs.lean
+  712d2bfa6c2f906fb9fbd879a320cde470c815ceb0f21fe0e2c4bec337de545e  ArithmeticLorentz/PlaceLink.lean
+  251020f5b44d279d99c28ede23288bb9a3f190cc4b1f4d41f333baddcfdfb82d  ArithmeticLorentz/Qubit.lean
+  30a8474a7c702d82e8c867c137ed889f59912b81fe9b0b30946a6c67e9652428  ArithmeticLorentz/RegisterBridge.lean
+  bf259b4790432f657386a6981bc3086dc344a430c8c243eedc47deca79c82c20  GravityScreening/SignedLieGeneration.lean
+  f8b151f9054204bb48178f80326c3220709496e78f23e519b3306784aea2ec18  Axioms.lean
+  1a880e0c62af42a92e004af72158eb6961e2a616c435d63e1f7b4c710cfec5be  comparator.json
+  6b860090ef8ef3c0cf7f89f2e26ae535d458e6bbad3064378e0e0fb3cca0f2b2  lakefile.toml
+  8dc8d6f560141069d9073e370611716ef77ada0da8ffa37e2149f44b2e63ac7a  lean-toolchain
+  683f4e952d9bea84f67c7a3e21e83c2845b6a551d4d38d47bc8200745fc0e699  lake-manifest.json
+  c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4  LICENSE
+  46fc10684665fa2c8232dd89f15f0eace152a46b803a35e1c92ffbce0ec3000c  NOTICE
+  (README.md, formalization.yaml, BUILD.txt and .gitignore are hashed at commit time; see git. SHA256SUMS
+  lists the same 31 files.)
+
+Registry source check on the tracked files
+  scripts.source_requirements.inspect_lean_sources (PalomarSubmission 14aa8d6b, local copy, Python 3.11) on a
+  copy of the 36 tracked files: 25 .lean files checked, module header required, at most 10,000 lines each,
+  0 issues.

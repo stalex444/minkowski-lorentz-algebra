@@ -1,0 +1,29 @@
+name = "minkowski_lorentz_algebra"
+defaultTargets = ["ArithmeticLorentz", "GravityScreening", "LorentzLie", "ReleaseAdapter", "Challenge", "Solution"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "065356127b1dc0016f66b7283ce0ce2c4055aa55"
+
+[[lean_lib]]
+name = "ArithmeticLorentz"
+globs = ["ArithmeticLorentz.+"]
+
+[[lean_lib]]
+name = "GravityScreening"
+globs = ["GravityScreening.+"]
+
+[[lean_lib]]
+name = "LorentzLie"
+globs = ["LorentzLie", "LorentzLie.+"]
+
+[[lean_lib]]
+name = "ReleaseAdapter"
+globs = ["ReleaseAdapter", "ReleaseAdapter.+"]
+
+[[lean_lib]]
+name = "Challenge"
+
+[[lean_lib]]
+name = "Solution"

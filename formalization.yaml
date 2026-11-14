@@ -1,0 +1,729 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "The Lorentz Lie algebra of four-dimensional Minkowski space: sl(2,C), the exponential criterion, the complexification and the invariant bilinear forms"
+  description: >-
+    Kernel-checked proofs, in Lean 4 + Mathlib, of nine statements about
+    the Lie algebra L of the linear endomorphisms of four-dimensional
+    Minkowski space that are skew-adjoint for the Minkowski form.
+    (1) On Mathlib's own objects, with nothing carried: Mathlib's
+    so' (Fin 1) (Fin 3) R is isomorphic, as a real Lie algebra, to
+    sl(2,C) (Mathlib's sl (Fin 2) C with scalars restricted to R), by the
+    explicit map X -> -(1/2) sum_k (beta_k + i theta_k) sigma_k, where
+    beta_k and theta_k are the boost and rotation entries of X and
+    sigma_k are the Pauli matrices. (2) On the carried copy of Minkowski
+    space: L has dimension 6; the same map is an isomorphism of real Lie
+    algebras from L onto sl(2,C); the three boost generators and the
+    three rotation generators are in L, the boost along the axis k goes
+    to -(1/2) sigma_k and the rotation in the plane of the two other axes
+    goes to -(i/2) sigma_k. (3) The exponential criterion: a continuous
+    linear endomorphism A is in L if and only if exp(tA) is in the
+    carried type ProperLorentz for every real t; the statement also
+    records that the Minkowski form used for L has the carried
+    minkowskiSquare as its quadratic form. (4) The explicit operator H
+    (the boost along the axis k goes to minus the rotation in the plane
+    of the two other axes, and that rotation goes to the boost) maps L
+    into L, is real-linear there, satisfies H[X,Y] = [X,HY] and
+    H(HX) = -X, and the isomorphism of (2) carries it to multiplication
+    by -i on sl(2,C). (5) The complexification C (x)_R L is isomorphic,
+    as a complex Lie algebra, to sl(2,C) x sl(2,C), and the two maps
+    (1/2)(1 + iH) and (1/2)(1 - iH) are the projections onto the two
+    factors, H being the operator of (4) extended C-linearly. (6) A real
+    bilinear form B on L satisfies B([Z,X],Y) + B(X,[Z,Y]) = 0 for all
+    X, Y, Z if and only if B(X,Y) = a tr(XY) + b tr(H(X)Y) for exactly
+    one pair of real numbers (a,b); every such form is symmetric.
+    Controls: (7) for the definite diagonal form diag(1,1,1,1) the Lie
+    algebra of skew matrices is isomorphic to so(3) x so(3), for the
+    split form diag(1,1,-1,-1) it is isomorphic to sl(2,R) x sl(2,R), and
+    neither of the two is isomorphic to sl(2,C) as a real Lie algebra;
+    (8) there is a bilinear form on L that is not
+    a tr(XY) + b tr(H(X)Y) for any real a, b; (9) there is a continuous
+    linear endomorphism A with exp(A) in ProperLorentz and A not in L.
+    Statement (1) and part (b) of statement (2) are one isomorphism on
+    two presentations; they are not two results. The Challenge imports
+    Mathlib only. The definitions of Minkowski space and of the Lorentz
+    transformations (Spacetime, minkowskiSquare, ProperLorentz and eight
+    more) are copies carried textually from the public statement of the
+    Yang-Mills release, repository
+    github.com/yang-mills-group/OpenAI-YM-20261028, commit
+    3456e5e75cf8d4cd558955a5c7638fba2d68f464, file PublicTheory.lean,
+    under the Apache License, Version 2.0; the source file is not
+    imported. Statement (6) is proved from the classification of the
+    linear maps R of L with R[X,Y] = [X,RY], which is the subject of a
+    separate entry in preparation and is not compared here.
+    Literature. This entry formalizes known mathematics; the clauses not found printed are listed below.
+    (1) and (2) are the Lie-algebra form of Spin(3,1) = SL(2,C) (Woit,
+    Quantum Theory, Groups and Representations, sections 40.2 and 40.4);
+    (3) is the description of the Lie algebra of a matrix group by its
+    one-parameter subgroups (Hall, arXiv:math-ph/0005032, Definition 3.13;
+    proved there for O(3;1), Chapter 3, section 5.6), stated here for the
+    proper orthochronous subgroup, and (9) is an exercise
+    of that chapter; (4) is the Hodge operator on so(3,1) (Wise, Class.
+    Quantum Grav. 27 (2010) 155010, Appendix); (5) is the splitting of
+    the complexified Lorentz algebra (Woit, section 40.2; Sahlmann and
+    Seeger, Class. Quantum Grav. 41 (2024) 075010, section 2.2.1); (6) is
+    the description of the invariant bilinear forms of a complex simple
+    Lie algebra regarded as a real one (Olafsson and Quiroga-Barranco,
+    Transform. Groups 17 (2012), Remark A.10; Francis-Staite and
+    Leistner, Transform. Groups 26 (2021), Proposition 4.1); parts (a)
+    and (b) of (7) are the companion isomorphisms in the two other
+    signatures; (8) holds by a count of dimensions (the bilinear forms on L have
+    dimension 36 and the forms of statement 6 are a plane). Not found
+    printed in the sources read: the explicit formula of (1) and (2),
+    the clause of (4) on multiplication by -i, part (b) of (7) with
+    sl(2,R) in place of so(2,1), and parts (c) and (d) of (7); README.md
+    says how each follows from what is printed.
+    Prior formalization, recorded under related_formalizations (search of
+    2026-11-13): no formalization of a compared statement was found. The
+    counterparts for groups of (1), (2), (5), (7a) and (7b) are in
+    TauCeti, and the homomorphism from SL(2,C) onto the restricted
+    Lorentz group is in physlib; every ingredient of (1) and (2) is in
+    TauCeti and was not found combined there. The equivalence of (3) is
+    proved in TauCeti as a general theorem for the unitary group of a
+    complete normed real algebra with a continuous involution (the
+    form-preservation part of (3) is a case of it, by a reading that was
+    not compiled), for the
+    matrix groups O(n), SO(n), SL(n), SU(n) and the symplectic group, and
+    for the Spin groups; its direction from the algebra to the group is
+    proved for Lorentz matrices in physlib and in OSreconstruction; it
+    was not found with both directions for the Lorentz group or another
+    indefinite orthogonal group of linear maps. For (6), TauCeti has the
+    uniqueness of invariant forms over an algebraically closed field and
+    physlib the invariant coefficient tensors with four vector indices.
+    For (5), TauCeti has extension of scalars for the skew-adjoint
+    matrices of a Gram matrix and the complexifications of so(n) and
+    su(n); the splitting into sl(2,C) x sl(2,C) was not found.
+    The Hodge operator of Euclidean four-space on matrices is in
+    github.com/openai/math.
+    Not formalized: no covering map from SL(2,C) to ProperLorentz, no Lie
+    group structure, no connectedness statement, no statement that every
+    element of ProperLorentz is an exponential; other dimensions and
+    signatures beyond (7); the identification of L with two-forms; the
+    Killing form; the invariant forms of the complexification.
+    Also proved in the library, not compared: Minkowski space from a number
+    field. For a number
+    field K with exactly two real places and exactly one complex place
+    there is a real-linear equivalence e from Mathlib's mixedSpace K onto
+    Spacetime with minkowskiSquare(e x) = -Tr_{K/Q}(x^2) for every x in
+    K, and conjugation by e is an isomorphism of real Lie algebras onto L
+    from the Lie algebra of the endomorphisms of mixedSpace K that are
+    skew-adjoint for the form that restricts to Tr_{K/Q}(x^2) on K. This
+    is proved in the library of this entry and is not compared.
+  authors:
+    - "Stephanie Alexander"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Stephanie Alexander"
+
+classification:
+  # Each code is in the registry's taxonomy snapshot. math.RT / 17B20 (simple, semisimple, reductive Lie
+  # algebras), 22E43 (structure and representation of the Lorentz group),
+  # 17B05 (structure theory of Lie algebras), 15A63 (quadratic and
+  # bilinear forms): the nine statements. math-ph, gr-qc, hep-th / 17B81
+  # (applications of Lie algebras to physics), 83A05 (special relativity):
+  # the subject and the cited application. No compared statement is a
+  # physical claim.
+  arxiv: ["math.RT", "math-ph", "gr-qc", "hep-th"]
+  msc2020: ["17B20", "22E43", "17B05", "15A63", "17B81", "83A05"]
+
+sources:
+  - title: "Quantum Theory, Groups and Representations: An Introduction"
+    authors:
+      - "P. Woit"
+    id: "Author's revised and expanded draft of 20 October 2025 (580 pp.); first edition Springer, Cham, 2017, DOI 10.1007/978-3-319-64612-1, not opened"
+    # Bibliographic record Crossref-verified 2026-11-13: DOI
+    # 10.1007/978-3-319-64612-1. READ 2026-11-13 in the author's revised
+    # and expanded draft, title page dated 20 October 2025 (580 pp.),
+    # math.columbia.edu/~woit/QM/qmbook.pdf. Section and page numbers are
+    # those of that draft. The Springer printing was not opened.
+    type: "book"
+    location: "https://www.math.columbia.edu/~woit/QM/qmbook.pdf"
+    relationship: "formalizes"
+    note: >-
+      Scoped to statements 1, 2, 5 and 7(a). Section 40.2 (pp. 429-430 of
+      the draft): the Lorentz group has dimension six; generators l_j, k_j
+      with the brackets (40.1), (40.2); the complex combinations
+      A_j = (1/2)(l_j + i k_j), B_j = (1/2)(l_j - i k_j) give
+      so(3,1) (x) C = sl(2,C) + sl(2,C). Section 40.4 (pp. 431-434):
+      Spin(3,1) is identified with SL(2,C), which is said to have the same
+      Lie algebra as SO(3,1); the action (40.4) of SL(2,C) on Hermitian
+      matrices; Spin(4) = SU(2) x SU(2) and Spin(2,2) = SL(2,R) x SL(2,R)
+      for the groups. Section 21.2 (p. 241): so(4) = su(2) x su(2) =
+      so(3) x so(3). Problem 2 of section B.18 (p. 553) poses
+      so(4,C) = sl(2,C) + sl(2,C) and its real subalgebras as a problem.
+      The explicit formula of statements 1 and 2 is not printed in the
+      pages read: it is the derivative of (40.4) with the opposite sign
+      for the boosts (differentiating (40.4) sends a boost to +(1/2) sigma
+      and a rotation to -(i/2) sigma; a computation made for this entry).
+      Statement 7(b) is in this source for the groups only. The proofs
+      here were not written from this text; see fidelity. The Springer
+      printing was not opened; section and page numbers are those of the
+      draft.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "An Elementary Introduction to Groups and Representations"
+    authors:
+      - "B. C. Hall"
+    id: "arXiv:math-ph/0005032v1"
+    # READ 2026-11-13 in the arXiv PDF (128 pp.); page numbers are those
+    # printed in it. The arXiv record's journal-reference field names an
+    # expanded version published as Graduate Texts in Mathematics 222
+    # (Springer, 2003); that book was not opened.
+    type: "paper"
+    location: "https://arxiv.org/abs/math-ph/0005032"
+    relationship: "formalizes"
+    note: >-
+      Scoped to statements 3 and 9. Definition 3.13 (p. 36): the Lie
+      algebra of a matrix Lie group G is the set of matrices X with
+      e^{tX} in G for all real t; the text after it (p. 37) says that
+      e^X in G alone is not enough. Chapter 3, section 5.6 (p. 38): for
+      the generalized orthogonal group O(n;k) with its diagonal matrix g,
+      e^{tX} is in O(n;k) for all real t exactly when g X^tr g = -X; the
+      Lie algebra so(n;k) of O(n;k) is that of SO(n;k), and the source
+      says, without proof in the passage, that the identity component has
+      the same Lie algebra. Statement 3 is this for O(3;1) and the
+      carried type ProperLorentz (determinant 1, the forward cone
+      preserved); connectedness is not formalized here. Chapter 3,
+      Exercise 5 (p. 51) asks for a matrix Lie group G and a matrix X with
+      e^X in G and X not in its Lie algebra: statement 9, with this
+      entry's example. Exercise 7 asks for the general matrix of so(3;1).
+      The isomorphism of so(3;1) with sl(2;C) is not stated in these
+      notes.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "MacDowell-Mansouri gravity and Cartan geometry"
+    authors:
+      - "D. K. Wise"
+    id: "Class. Quantum Grav. 27 (2010) 155010; arXiv:gr-qc/0611154v2"
+    # READ 2026-11-13 as arXiv:gr-qc/0611154v2 (Appendix, pp. 32-33 of the
+    # arXiv version); journal reference and DOI from the arXiv record.
+    type: "paper"
+    location: "https://doi.org/10.1088/0264-9381/27/15/155010"
+    relationship: "formalizes"
+    note: >-
+      Scoped to statement 4, without its clause on multiplication by -i.
+      The Appendix prints the matrix of the Hodge operator on so(3,1) in
+      the fundamental representation and states **X = -X and
+      *[X,X'] = [X,*X'], with ** = +1 in the so(4) case. The definition
+      hodgeMatrix of this entry is the printed matrix with the time index
+      moved from the beginning to the end (compared by an exact script on
+      integer coefficients). The clause of statement 4 on multiplication
+      by -i was not found printed; it follows from the values on the six
+      generators in statements 2(c) and 4(b), by linearity.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "Revisiting loop quantum gravity with selfdual variables: classical theory"
+    authors:
+      - "H. Sahlmann"
+      - "R. Seeger"
+    id: "Class. Quantum Grav. 41 (2024) 075010; arXiv:2310.19729"
+    # Bibliographic record Crossref-verified 2026-11-13. READ 2026-11-13
+    # as arXiv:2310.19729 (section 2.2.1, pp. 5-8 of the arXiv version).
+    type: "paper"
+    location: "https://doi.org/10.1088/1361-6382/ad2cec"
+    relationship: "formalizes"
+    note: >-
+      Scoped to statement 5 and to H(HX) = -X of statement 4. In signature
+      (-+++) the Hodge operator squares to -1; the projectors
+      (1 -/+ i*)/2 onto its eigenspaces (7); the decomposition of the
+      complexified algebra into selfdual and anti-selfdual parts (18); the
+      bracket splits, (26) and (27), and the projectors are Lie algebra
+      homomorphisms. Equation (35) writes the Cartan-Killing metric as
+      twice a trace, the step between the Killing form of the sources of
+      statement 6 and the trace form used here.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "On low-dimensional manifolds with isometric SO_0(p,q)-actions"
+    authors:
+      - "G. Olafsson"
+      - "R. Quiroga-Barranco"
+    id: "Transform. Groups 17 (2012) 835-860; arXiv:1003.0704v2"
+    # Bibliographic record Crossref-verified 2026-11-13. READ 2026-11-13
+    # as arXiv:1003.0704v2 (Remark A.10, p. 21 of the arXiv version).
+    type: "paper"
+    location: "https://doi.org/10.1007/s00031-012-9194-5"
+    relationship: "formalizes"
+    note: >-
+      Scoped to statement 6, and to statement 7(b) in the form
+      so(2,1) x so(2,1). Remark A.10: the invariant bilinear forms on
+      so(2,2) = so(2,1) x so(2,1) are the combinations of the Killing
+      forms of the factors; for the realification of a simple complex Lie
+      algebra with Killing form K and complex structure J, the form
+      K(X, J Y) is invariant and is not a multiple of K, and by Schur's
+      lemma the invariant bilinear forms are a K + b K(., J .) with a, b
+      real. Statement 6 is this for sl(2,C), with J the operator H up to
+      sign and with the trace form of the action on Minkowski space in
+      place of K. The isomorphism of so(2,1) with sl(2,R) is not in the
+      pages read.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "Conformal properties of indefinite bi-invariant metrics"
+    authors:
+      - "K. Francis-Staite"
+      - "T. Leistner"
+    id: "Transform. Groups 26 (2021) 859-892; arXiv:1901.04682v2"
+    # READ 2026-11-13 as arXiv:1901.04682v2 (Proposition 4.1 and the
+    # sentence after it, pp. 11-12 of the arXiv version). The four
+    # references that sentence cites were not read.
+    type: "paper"
+    location: "https://doi.org/10.1007/s00031-020-09561-9"
+    relationship: "formalizes"
+    note: >-
+      Scoped to statement 6, for symmetric forms. Proposition 4.1: for a
+      real simple Lie algebra, either its complexification is simple and
+      the invariant symmetric bilinear forms are the multiples of the
+      Killing form, or it is a complex simple Lie algebra regarded as
+      real and they form a plane spanned by the real and the imaginary
+      part of the complex Killing form. The sentence after the
+      proposition adds that simple Lie algebras admit no invariant
+      skew-symmetric bilinear form. Case (2) is also the reason behind
+      parts (c) and (d) of statement 7 (sl(2,C) is simple as a real Lie
+      algebra), which were not found printed as sentences.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "Plebanski formulation of general relativity: a practical introduction"
+    authors:
+      - "K. Krasnov"
+    id: "Gen. Relativ. Gravit. 43 (2011) 1-15; arXiv:0904.0423v2"
+    # READ 2026-11-13 as arXiv:0904.0423v2 (p. 4, equations (1), (4), (5)).
+    type: "paper"
+    location: "https://doi.org/10.1007/s10714-010-1061-x"
+    relationship: "background"
+    note: >-
+      Background for statements 4 and 5: the Hodge dual on bivectors, its
+      square -1, selfdual and anti-selfdual bivectors and their
+      projectors.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "Lecture notes: Electromagnetism (Lent 2015) and Gauge Theory (2018)"
+    authors:
+      - "D. Tong"
+    id: "University of Cambridge lecture notes; Electromagnetism p. 113, equation (5.25), and p. 127; Gauge Theory section 1.2, p. 10, equation (1.11)"
+    # READ 2026-11-13 in the author's PDF files. Lecture notes, not a
+    # published book.
+    type: "other"
+    relationship: "background"
+    note: >-
+      Source of the naming remark in the docstring of statement 6 only:
+      the two Lorentz-invariant quadratic expressions in a field strength
+      and its dual, and the names kinetic (Maxwell) term and theta term.
+      No compared statement asserts anything about them; the reading of an
+      element of L as a two-form is not formalized.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "Physics 251, Problem Set 4, Spring 2026"
+    id: "University of California, Santa Cruz; scipp-legacy.pbsci.ucsc.edu/~haber/ph251/groups26_4.pdf (4 pp.)"
+    # READ 2026-11-13. The file does not name its author.
+    type: "other"
+    relationship: "background"
+    note: >-
+      Problem 1 asks in part (a) to work out so(4) and verify that it is
+      so(3) + so(3), and in part (e) to show that so(3,1) is the
+      realification of sl(2,C). Statements 1, 2(b) and 7(a), posed as
+      exercises in a graduate course. Parts (d) and (e) and the remark pose
+      the complexified statement, statement 5 without its projections.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+
+related_formalizations:
+  - id: "https://github.com/leanprover-community/mathlib4/tree/065356127b1dc0016f66b7283ce0ce2c4055aa55"
+    relationship: "builds-on"
+    note: >-
+      The dependency, at this commit. Declarations used in the
+      statements: so', sl, so, skewAdjointLieSubalgebra,
+      skewAdjointMatricesLieSubalgebra, LieModule.traceForm,
+      NormedSpace.exp, RestrictScalars, the base change of a Lie algebra.
+      Mathlib's soIndefiniteEquiv (Mathlib/Algebra/Lie/Classical.lean:226)
+      needs an element i with i * i = -1, so it does not apply over R. At
+      the pin, by a search of 2026-11-13: no equivalence of so' with sl,
+      no file for a Lorentz Lie algebra, no uniqueness statement for
+      invariant forms, and the square of exteriorPower.hodgeStar is a
+      to-do note there
+      (Mathlib/LinearAlgebra/ExteriorPower/HodgeStar.lean:20-27).
+  - id: "https://github.com/yang-mills-group/OpenAI-YM-20261028/tree/3456e5e75cf8d4cd558955a5c7638fba2d68f464"
+    relationship: "builds-on"
+    note: >-
+      SOURCE OF THE CARRIED DEFINITIONS. The eleven declarations Axis,
+      SpaceAxis, timeAxis, Spacetime, Space, time, spatial, forwardCone,
+      minkowskiSquare, ProperLorentz, PoincareCoordinates of Challenge.lean
+      are copies carried textually from the public statement of the
+      Yang-Mills release: file PublicTheory.lean, lines 11, 13-14, 51-55,
+      57, 59-60, 64, 66, 209-212 and 215, at the commit in the id, under
+      the Apache License, Version 2.0, with its NOTICE carried. The source
+      file is not imported; the copies are elaborated at this entry's Lean
+      and Mathlib versions. PoincareCoordinates is carried with the block
+      and is not used by any statement. In that repository the Lie
+      algebra of the gauge group is defined by the criterion of statement
+      3 (PublicTheory.lean:22-33). Read 2026-11-11 and 2026-11-13 at that
+      commit: ProperLorentz occurs in PublicTheory.lean only (lines 209,
+      215, and through PoincareCoordinates line 235); no LieSubalgebra,
+      LieAlgebra or LieRing occurs in the repository; the infinitesimal
+      Lorentz elements used internally are the predicate tangent
+      (YM/Next/BOUNDARY/Derived.lean:21), and no declaration relating it
+      to exponentials was found.
+  - id: "https://github.com/TauCetiProject/TauCeti/tree/da527980caecf7e72838e069c01f4a7e7633eca3"
+    relationship: "other"
+    note: >-
+      PRIOR FORMALIZATION OF THE CRITERION OF STATEMENT 3 IN GENERAL AND ON
+      OTHER GROUPS. Read on 2026-11-13 at the commit in the id (paths under
+      TauCeti/). The equivalence "exp(tX) is in the group for every real t
+      if and only if X is in the Lie algebra" is proved there for the
+      unitary group of a complete normed real algebra with a continuous
+      involution (Geometry/Lie/Exponential/Unitary.lean:74,
+      forall_exp_smul_mem_unitary_iff_mem_skewAdjoint); for O(n), SO(n),
+      SL(n), SU(n) and the symplectic group
+      (Geometry/Lie/Exponential/Matrix/SpecialOrthogonal.lean:96 and :107,
+      Geometry/Lie/Exponential/Matrix/Symplectic.lean:80,
+      Geometry/Lie/Exponential/Matrix/SpecialUnitary.lean:77,
+      Geometry/Lie/Subgroup/SpecialLinear.lean:85); for Spin(p,q) in the
+      Clifford algebra
+      (Topology/Algebra/CliffordAlgebra/Spin/LieAlgebra.lean:95-99); and it
+      is the definition of the Lie algebra of a closed subgroup
+      (Geometry/Lie/Subgroup/LieAlgebra.lean:369-371). No instance at
+      an indefinite orthogonal group of linear maps was found there (limits
+      of the search: README.md).
+      By a reading that was not compiled (the Minkowski adjoint as the
+      involution), the part of statement 3 on the preservation of the form
+      is a case of the general theorem. Counterparts for groups of
+      statements 1, 2, 5, 7(a) and 7(b):
+      LinearAlgebra/CliffordAlgebra/Spin/Real/ThreeOne.lean:79
+      (Spin(3,1) = SL(2,C)), LinearAlgebra/CliffordAlgebra/Spin/Real/Four.lean:383
+      (Spin(4) = SU(2) x SU(2)),
+      LinearAlgebra/CliffordAlgebra/Spin/Real/TwoTwo.lean:99
+      (Spin(2,2) = SL(2,R) x SL(2,R)),
+      LinearAlgebra/CliffordAlgebra/Spin/LowRank/HyperbolicFour.lean (the
+      Spin group of the hyperbolic four-space over a field). The Lie
+      algebra of SL(n,k) as sl with scalars restricted to R
+      (Geometry/Lie/SpecialLinear.lean:136; at this commit, not at the
+      earlier commit 3602eb5f); the isomorphism of the skew-adjoint
+      endomorphisms of a quadratic form with the quadratic elements of
+      the Clifford algebra
+      (LinearAlgebra/CliffordAlgebra/Quadratic/Realization.lean:164-165);
+      the uniqueness of invariant bilinear forms over an algebraically
+      closed field (Algebra/Lie/Killing/InvariantForm.lean:62-63, :71,
+      :90, :105); su(2) = so(3)
+      (RepresentationTheory/SU2/StandardBasis.lean:204); extension of scalars for the skew-adjoint matrices of a Gram matrix
+      (Algebra/Lie/SkewAdjoint/BaseChange.lean:162,
+      skewAdjointMatricesLieSubalgebraBaseChangeEquiv), the first step of
+      statement 5, not found instantiated at the Minkowski form or
+      continued to sl(2,C) x sl(2,C); the complexifications of so(n) and
+      su(n) (Geometry/Lie/Subgroup/Complexification.lean:272, :193-196); the semisimplicity
+      of so(p,q) on Mathlib's so' (Algebra/Lie/Orthogonal/Killing.lean:230,
+      hasTrivialRadical_so'), in a file whose docstring (:38-39) says that
+      simplicity is not asserted and names so(2,2) = sl_2(R) x sl_2(R). With these, every
+      ingredient of statements 1 and 2 is in that library; they were not
+      found combined there into the isomorphism of statement 1. Nothing is
+      imported or reproduced (that library is at Lean 4.36.0-rc2). The
+      Spin, unitary and SO(n) files were present at the commit 1e668f5e
+      (2026-11-09). Recorded as "other", not "independent": inventories
+      of these libraries were in hand when the statements were written.
+  - id: "https://github.com/leanprover-community/physlib/tree/adccea9195c7c347a5f8cde1ddf6874f89ea6a9a"
+    relationship: "other"
+    note: >-
+      Read on 2026-11-13 at the commit in the id. Statement 1 is stated on
+      the object physlib names lorentzAlgebra, Mathlib's
+      so' (Fin 1) (Fin 3) R
+      (Physlib/Relativity/LorentzAlgebra/Basic.lean:29-30); the six
+      generators and their membership are in
+      Physlib/Relativity/LorentzAlgebra/Basis.lean, whose header says that
+      the basis property is not yet proved there. One direction of
+      statement 3 on matrices
+      (Physlib/Relativity/LorentzAlgebra/ExponentialMap.lean:70, :131,
+      :141, :175, exp_mem_restricted_lorentzGroup); no converse was found.
+      The criterion as the definition of the Lie algebra of a closed
+      matrix group, added 2026-11-12
+      (PhyslibAlpha/Mathematics/ForMathlib/Analysis/Normed/Algebra/MatrixLieAlgebra.lean:117-119).
+      The homomorphism from SL(2,C) onto the restricted Lorentz group and
+      its kernel (Physlib/Relativity/SL2C/Basic.lean:169, :273, :338;
+      Physlib/Relativity/SL2C/Cover.lean:139). The invariant coefficient
+      tensors with four vector indices
+      (PhyslibAlpha/Relativity/LorentzGroup/Invariants/RankFour.lean:771,
+      :309): the classical fact behind statement 6 as group-invariant
+      complex coefficient tensors; that file says independence is not
+      proved. Their use for the two contractions of two field strengths
+      (PhyslibAlpha/Particles/StandardModel/IsGaugeSector/MassWeight/MassDimEight.lean:1204).
+      Nothing is imported or reproduced.
+  - id: "https://github.com/xiyin137/OSreconstruction/blob/cf0904e34a7c146a9f312f601e3707dca4a87697/os-reconstruction/OSReconstruction/ComplexLieGroups/LorentzLieGroup.lean"
+    relationship: "other"
+    note: >-
+      Read on 2026-11-13. One direction of statement 3 for every
+      dimension, on matrices, signature (-,+,...,+): exp_isLorentz (:221),
+      exp_det_one (:250), exp_orthochronous (:306), expLorentz (:334). The
+      algebra there is a predicate on matrices (IsInLorentzAlgebra, :211).
+      No converse was found. Nothing is imported or reproduced.
+  - id: "https://github.com/openai/math/blob/4eaee87548250b2682affda7d05d947c05554bae/lean/OAI/Geometry/EinsteinFour/CurvatureTensors02.lean"
+    relationship: "other"
+    note: >-
+      hodgeStarFour (:9807-9814) and its values on the quaternion and
+      opposite-quaternion matrices (:9835, :9840): the counterpart in
+      definite signature of hodgeMatrix (the three signs of the last
+      column differ). No lemma on brackets or on the square of the
+      operator, and no Lie-algebra statement, was found there. Opened on
+      2026-11-13, after the statements of this entry were fixed. Nothing
+      is imported or reproduced.
+  - id: "https://github.com/stalex444/one-complex-place-lorentz-group-galois-boost/tree/ec70bded79e51b31f907b085f71756a79df0fe33"
+    relationship: "builds-on"
+    note: >-
+      A repository of the author's (not a registered entry on
+      2026-11-13). Seven modules of its library, under ArithmeticLorentz/,
+      are unchanged copies of the files of the same names at that commit
+      (git blob ids compared). They are on the Solution side only: no file
+      of them is imported by Challenge.lean. Its statements on the Hodge
+      images of generators are not compared here.
+  - id: "https://github.com/stalex444/pdt-hodge-lie-generation/tree/e2d8dde6f076b730b9a718c95ff1664c6aa88b51"
+    relationship: "builds-on"
+    note: >-
+      The author's registered entry PALOMAR-2026-09-30-000024. One module
+      of this entry's library, GravityScreening/SignedLieGeneration.lean,
+      is an unchanged copy of the file of the same name at that commit (git
+      blob id compared). Its compared statement is a
+      different theorem on the same family of operators.
+  - id: "https://github.com/stalex444/pdt-em-source-selection/tree/1c9ba637b5e664a88b6487d463515587616476e1"
+    relationship: "builds-on"
+    note: >-
+      A repository of the author's. GravityScreening/SignedLieGeneration.lean
+      is an unchanged copy of the file of the same name at that commit
+      (git blob id compared); this is the public copy named in NOTICE.
+      Solution.lean reaches the module through the library. No statement
+      of that repository is compared here.
+  - id: "https://github.com/stalex444/conformal-killing-flat/tree/ef2fbb3488aef70b5e2fbd933c7e01cae6679e48"
+    relationship: "other"
+    note: >-
+      The author's registered entry PALOMAR-2026-11-12-000002. Its cited
+      application names the dimension 10 of the infinitesimal isometries
+      of Minkowski space; statement 2(a) here is the count 6 of their
+      linear part, as a compared finrank. No statement in common.
+
+status:
+  scope: >-
+    Formalized: nine compared theorems, in comparator order, namespace
+    MinkowskiLorentz (see the description for their content), on eleven
+    declarations carried from the public statement of the Yang-Mills
+    release (Axis, SpaceAxis, timeAxis, Spacetime, Space, time, spatial,
+    forwardCone, minkowskiSquare, ProperLorentz, PoincareCoordinates) and
+    eleven definitions of this entry (minkowskiBilin, lorentzAlgebra,
+    boostEnd, rotEnd, hodgeMatrix, hodgeEnd, sl2CReal, sl2CRealMat, pauli,
+    spinOf, spinMatrix). Proved in the repository, not compared: the
+    number-field adapter (ReleaseAdapter.mixedIso,
+    ReleaseAdapter.minkowskiSquare_mixedIso,
+    ReleaseAdapter.minkowskiSquare_mixedIso_mixedEmbedding,
+    ReleaseAdapter.exists_mixedSpace_isometry,
+    LorentzLie.NumberFieldAux.traceSkewEquivLorentzAlgebra,
+    LorentzLie.NumberFieldAux.traceSkewEquivLorentzAlgebra_apply,
+    LorentzLie.NumberFieldAux.finrank_traceSkew); the classification of
+    the bracket-commuting maps of L
+    (ReleaseAdapter.lorentzAlgebra_centroid_lorentzHodge), used in the
+    proof of statement 6 and the subject of a separate entry in
+    preparation; the simplicity of L (LorentzLie.etaSkew_isSimple), used
+    in parts (c) and (d) of statement 7. Not stated: nothing about the
+    Lie group beyond statement 3 (no covering map from SL(2,C) is
+    constructed, no Lie group structure, no connectedness statement, no
+    statement that every element of ProperLorentz is an exponential, and
+    the Lie algebra of ProperLorentz is not defined other than through
+    the one-parameter groups of statement 3); statement 5 does not give
+    the isomorphism on generators; other dimensions and signatures
+    beyond statement 7; the identification of L with two-forms (Mathlib's
+    exteriorPower.hodgeStar is not used); that the trace form of
+    statement 6 is a multiple of the Killing form; the invariant forms of
+    the complexification; Spin groups and Clifford algebras; any
+    physical claim.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+
+automation:
+  # The model name, wall time and spend below are PROPOSED values for the
+  # author to confirm.
+  methods:
+    - method: "agent"
+      models: ["Anthropic Claude (Fable-class, 2026)"]
+      framework: "Claude Code"
+      tool_setup: >-
+        AI-assisted writing of the library, module by module, each against
+        a fixed list of statements and iterated against lake build, and
+        each followed by an AI-assisted review; an AI-assisted statement
+        stage for the nine compared statements (each with a plain reading,
+        the library theorems behind it and a bridging proof); a separate
+        AI-assisted hypothesis-deleting review of the statements, with
+        compiled probe files and an exact check script; an AI-assisted
+        search of the literature and of prior formalizations, followed by
+        a separate AI-assisted check that re-opened every declaration and
+        source; AI-assisted assembly of the Challenge, the Solution and
+        this metadata.
+      cost:
+        wall_time: "two days, 2026-11-12 and 2026-11-13"
+        spend_usd: "subscription-based"
+        hardware: "local machine, Apple silicon"
+      prompting_notes: >-
+        The statement review found one blocking difference between
+        Challenge.lean and Solution.lean (the definition spinOf elaborated
+        to different terms in the two files); it was corrected, and the
+        review's replacement texts were applied. The check of the
+        literature and prior-formalization search corrected five
+        omissions, each in the direction of more prior work (among them
+        the general theorem behind statement 3 and the counterpart for
+        groups of statement 7(b), both in TauCeti). The sources were read
+        after the Lean was written, and the account of them in the
+        Challenge docstring, the README and this file was written from
+        that reading. Three files that the Solution does not import were
+        removed from the package after assembly.
+    - method: "manual"
+      models: []
+      framework: "n/a"
+      tool_setup: >-
+        Author-directed scope: the decision to assemble this entry, the
+        cut between this entry and the separate entry on bracket-commuting
+        maps, the dependencies and the licence.
+      cost:
+        wall_time: "included in the two days above"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: "n/a"
+  spend_usd: "subscription-based"
+  notes: >-
+    Human-directed, machine-verified workflow: the author fixes scope and
+    decides what is submitted; AI assistance drafts and repairs statements
+    and proofs; the Lean kernel is the acceptance criterion.
+
+fidelity:
+  divergences: >-
+    (a) Conventions. Time is the index 3 and is positive in
+    minkowskiBilin; epsilon_0123 = +1; the boost along k goes to
+    -(1/2) sigma_k and the rotation to -(i/2) sigma_k. Under these, H is
+    multiplication by -i and -H is multiplication by i. Woit's action
+    (40.4) differentiates to boost -> +(1/2) sigma: the isomorphism here
+    differs from that one by the sign of the boosts. (b) hodgeMatrix is
+    X -> *(eta X) eta with eta = diag(1,1,1,-1), written entry by entry;
+    it is Wise's printed matrix with the time index moved from the
+    beginning to the end. Its docstring states its relation to the Hodge
+    dual of two-forms for the two normalisations of the alternating
+    symbol; that relation is not formalized. (c) spinMatrix and hodgeEnd
+    are defined on all endomorphisms and every statement uses them on L
+    only. (d) Statement 3. Hall's statement is for O(n;k) and matrices;
+    here the group is the carried type ProperLorentz of invertible
+    continuous linear maps with determinant 1 that preserve
+    minkowskiSquare and the forward cone. The direction from the
+    exponentials to L uses only the preservation of minkowskiSquare;
+    determinant 1 and the cone clause are conclusions in the other
+    direction. That ProperLorentz is the identity component of O(3;1) is
+    not formalized. (e) Statement 6. The sources state the result with
+    the Killing form K and the form K(., J .); here it is stated with the
+    trace form of L acting on Minkowski space and with tr(H(X)Y). That
+    the trace form is a nonzero multiple of the Killing form is not
+    formalized. The statement is for all bilinear forms, with no symmetry
+    assumed. The remark at the end of its docstring, on the two
+    expressions in F = eta X and their names in the physics literature,
+    rests on reading X as a two-form, which is not formalized. (f)
+    Statement 6 is proved in the library from the classification of the
+    linear maps R of L with R[X,Y] = [X,RY] (every such map is a id + b H
+    for exactly one pair (a,b)), which is the subject of a separate entry
+    in preparation and is not compared here; through the nondegenerate
+    form tr(XY) the two are the same fact at this form. (g) Statement 7
+    is on skewAdjointMatricesLieSubalgebra of a diagonal matrix, not on
+    Mathlib's named so (Fin 4) R and so' (Fin 2) (Fin 2) R. Part (b) is
+    stated with sl(2,R) x sl(2,R); the sources read have
+    so(2,1) x so(2,1) and, for the groups, SL(2,R) x SL(2,R). Parts (c)
+    and (d) were not found printed. (h) Statement 5 states the property
+    that identifies the two factors with the maps (1/2)(1 +/- iH); it
+    does not give the isomorphism on generators. (i) Statement 8 is
+    proved with an explicit antisymmetric form; the reason it holds is a
+    count of dimensions. Statement 9: the example is this entry's. (j)
+    The proofs were written before the sources were read and are not
+    adapted from any of them: the
+    isomorphisms are explicit linear maps of skew matrices with the
+    bracket identities checked by computation on the matrix entries, and
+    statement 3 is proved by differentiating t -> exp(tA) and by writing
+    exp(tA) as a square. (k) Sources. Woit's book was read in the
+    author's draft of 20 October 2025 and its section numbers are that
+    draft's; Hall's notes in the arXiv version; Wise, Sahlmann-Seeger,
+    Krasnov, Olafsson-Quiroga-Barranco and Francis-Staite-Leistner in
+    their arXiv versions. The Springer editions of Woit and Hall and the
+    references cited by Francis-Staite and Leistner were not opened. (l)
+    The paragraph "Also proved in the library, not compared" (Minkowski
+    space from a number field) is not compared: no compared statement
+    asserts it. It is proved in the library of this entry (the seven
+    declarations named under status.scope; Axioms.lean prints their
+    axioms).
+
+review:
+  # The author's own review of the nine statements against their informal
+  # descriptions is hers to record. Until it is recorded, the status is
+  # the one below; her review replaces this field and adds her name under
+  # reviewers.
+  status: "agent-reviewed"
+  reviewers: []
+  notes: >-
+    The axioms of every compared declaration were printed (the three
+    standard axioms); the registry Comparator was run locally without its
+    sandbox and both kernels accept; a structural-hash comparison found
+    the nine statement types and every definition equal in Challenge.lean
+    and Solution.lean; a count check found nine statements in every file
+    that names a count (BUILD.txt). An AI-assisted hypothesis-deleting
+    review of the nine statements (Anthropic Claude, in Claude Code,
+    under the author's direction), with compiled probe files, found one
+    blocking difference between the two files (the definition spinOf),
+    which was corrected, and further findings whose replacement texts
+    were applied. An AI-assisted search of the literature and of prior
+    formalizations was made on 2026-11-13 and checked the same day by a
+    separate AI-assisted pass, whose corrections were applied to the
+    Challenge docstring, README.md and this file. The reports of these
+    reviews and searches are working records of the author's project and
+    are not part of this repository. Not yet done: the author's own
+    review of the nine statements; a review of the assembled package on
+    the registry's published review prompts. Not peer-reviewed.
+
+alignment:
+  namespace: "MinkowskiLorentz"
+  statements:
+    - source: "Woit, Quantum Theory, Groups and Representations (author's draft of 20 October 2025), section 40.4: SL(2,C) is said to have the same Lie algebra as SO(3,1), with the action (40.4) on Hermitian matrices; Physics 251 Problem Set 4 (2026), Problem 1(e), poses the isomorphism as an exercise. The explicit formula was not found printed: it is the derivative of (40.4) with the opposite sign for the boosts"
+      lean: "MinkowskiLorentz.so'_one_three_lieEquiv_sl2C"
+      module: "Solution"
+      status: "proved"
+      note: "Mathlib's so' (Fin 1) (Fin 3) R is isomorphic over R to sl(2,C), and the isomorphism is the explicit map X -> -(1/2) sum_k (beta_k + i theta_k) sigma_k with beta_k = X (inr k) (inl 0) (boost entries) and theta_k = X (inr (k+2)) (inr (k+1)) (rotation entries). No definition copied from the Yang–Mills release is used. The same isomorphism as part (b) of statement 2, on another presentation."
+    - source: "(a) Woit, section 40.2: the Lorentz group has dimension six, with the generators l_j, k_j and (40.1)-(40.2); (b) as statement 1; (c) not printed: the values of the derivative of (40.4) on the generators, with the opposite sign for the boosts"
+      lean: "MinkowskiLorentz.lorentzAlgebra_lieEquiv_sl2C"
+      module: "Solution"
+      status: "proved"
+      note: "On the carried copy: (a) L has real dimension 6; (b) spinMatrix restricted to L is (the matrix of) an isomorphism of real Lie algebras from L onto sl(2,C); (c) the three boosts and three rotations are in L and go to -(1/2) sigma_k and -(i/2) sigma_k."
+    - source: "Hall, arXiv:math-ph/0005032v1, Definition 3.13 (p. 36) and Chapter 3, section 5.6 (p. 38), for O(n;k); the source says, without proof in the passage, that the identity component has the same Lie algebra. Part (a) is a remark on the definitions of this entry"
+      lean: "MinkowskiLorentz.mem_lorentzAlgebra_iff_exp"
+      module: "Solution"
+      status: "proved"
+      note: "(a) minkowskiBilin x x = minkowskiSquare x (the carried quadratic form is the quadratic form of the entry's bilinear form). (b) A continuous linear A is in L iff every exp(tA), t real, is in the carried ProperLorentz."
+    - source: "Wise, Class. Quantum Grav. 27 (2010) 155010 (arXiv:gr-qc/0611154v2), Appendix: the matrix of the operator, **X = -X and *[X,X'] = [X,*X']; Sahlmann-Seeger, section 2.2.1, for the square -1. The clause on multiplication by -i was not found printed: it follows from statements 2(c) and 4(b) by linearity"
+      lean: "MinkowskiLorentz.hodgeEnd_complexStructure"
+      module: "Solution"
+      status: "proved"
+      note: "(a) hodgeEnd restricts to a real-linear H from L to L with H[X,Y] = [X,HY], H(HX) = -X, and spinMatrix (H X) = -i spinMatrix X: under the isomorphism of statement 2, H is multiplication by -i. (b) H(boost k) = -rot(k+1,k+2), H(rot(k+1,k+2)) = boost k."
+    - source: "Woit, section 40.2: A_j, B_j = (1/2)(l_j +/- i k_j) and so(3,1) (x) C = sl(2,C) + sl(2,C); Sahlmann-Seeger, Class. Quantum Grav. 41 (2024) 075010, section 2.2.1, (7), (18), (26)-(27): the projectors (1 -/+ i*)/2 are Lie algebra homomorphisms"
+      lean: "MinkowskiLorentz.complexification_lieEquiv"
+      module: "Solution"
+      status: "proved"
+      note: "The complexification of L is isomorphic to sl(2,C) x sl(2,C) as complex Lie algebras, by an isomorphism E under which (1/2)(1 + iH_C) is the projection onto the factor (., 0) and (1/2)(1 - iH_C) the projection onto (0, .); H is the linear map of statement 4 (H X = hodgeEnd X is part of the statement). E is not given on generators."
+    - source: "Olafsson-Quiroga-Barranco, Transform. Groups 17 (2012) 835-860, Remark A.10: the invariant bilinear forms of the realification of a simple complex Lie algebra are a K + b K(., J .); Francis-Staite-Leistner, Transform. Groups 26 (2021) 859-892, Proposition 4.1(2) and the sentence after it (symmetric forms; no skew ones). Step not formalized: the trace form of the action on Minkowski space is a nonzero multiple of the Killing form (compare Sahlmann-Seeger (35))"
+      lean: "MinkowskiLorentz.invariant_bilinForm_iff"
+      module: "Solution"
+      status: "proved"
+      note: "A bilinear form on L is invariant iff it is a tr(XY) + b tr(H(X)Y) for exactly one real pair; invariant forms are symmetric. tr(XY) is Mathlib's LieModule.traceForm of L acting on Spacetime."
+    - source: "(a) Woit, section 21.2 (p. 241 of the draft): so(4) = so(3) x so(3); Physics 251 Problem Set 4 (2026), Problem 1(a). (b) stated in adjacent forms only: Olafsson-Quiroga-Barranco, Remark A.10, so(2,2) = so(2,1) x so(2,1), and Woit, section 40.4, Spin(2,2) = SL(2,R) x SL(2,R) for the groups; the isomorphism of so(2,1) with sl(2,R) is classical and is not in the pages read. (c), (d): not found printed; sl(2,C) is simple as a real Lie algebra and the two other algebras are products"
+      lean: "MinkowskiLorentz.definite_split_signature"
+      module: "Solution"
+      status: "proved"
+      note: "Control. so(4) is isomorphic to so(3) x so(3), so(2,2) to sl(2,R) x sl(2,R) (as Mathlib's skewAdjointMatricesLieSubalgebra of diag(1,1,1,1), diag(1,1,-1,-1)), and neither is isomorphic to sl(2,C) over R."
+    - source: "Not located in a source; it holds by a count of dimensions (the bilinear forms on a six-dimensional space have dimension 36; the forms of statement 6 are a plane)"
+      lean: "MinkowskiLorentz.exists_bilinForm_not_trace_form"
+      module: "Solution"
+      status: "proved"
+      note: "Control of statement 6. Some bilinear form on L is not in the two-parameter family of statement 6 (so it is not invariant). The proof exhibits an antisymmetric form; the forms of statement 6 are symmetric."
+    - source: "Hall, arXiv:math-ph/0005032v1, Chapter 3, Exercise 5 (p. 51), posed as an exercise; the example is this entry's"
+      lean: "MinkowskiLorentz.exists_exp_mem_not_mem_lorentzAlgebra"
+      module: "Solution"
+      status: "proved"
+      note: "Control of statement 3. There is A with exp A in ProperLorentz and A not in L."
+
+# PROPOSED text; the acknowledgements are the author's.
+acknowledgements: >-
+  Built on Mathlib and the Lean 4 toolchain; thanks to the leanprover
+  community. Developed with AI assistance (Anthropic Claude, in Claude
+  Code) under the author's direction.
