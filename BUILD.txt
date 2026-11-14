@@ -436,3 +436,7 @@ Added after this record, in its own commit (2026-11-14): .github/workflows/palom
   dispatch-only workflow that runs the registry's submission workflow on a public commit of this repository
   (37 tracked files with it; no other file changed apart from this note). Its result is in the
   repository's Actions runs, not in this file.
+
+A later commit of 2026-11-14 changes wording in README.md and formalization.yaml only, after a
+  pre-submission read: where statement 7 is stated, a clause in the note on the author's earlier library,
+  and one added item under "Who this is for". No Lean file, comparator.json or SHA256SUMS entry changes.

@@ -69,7 +69,8 @@ statement 1 uses this entry's `spinOf` and `pauli`.
 
 This entry formalizes known mathematics; the clauses not found printed are listed below. What
 this entry adds is the nine statements as kernel-checked theorems on Mathlib's `so'` and on the
-carried copy of Minkowski space, with explicit formulas. Statements 1, 2 and 5: Woit, §40.2,
+carried copy of Minkowski space (statement 7: on Mathlib's `skewAdjointMatricesLieSubalgebra`),
+with explicit formulas. Statements 1, 2 and 5: Woit, §40.2,
 §40.4 and §41.2; for statements 1 and 2 also Ólafsson and Quiroga-Barranco, Lemma A.1; for
 statement 5 also Sahlmann and Seeger, §2.2.1. Statements 3 and 9: Hall, Definition 3.13,
 Chapter 3, §5.6 (proved there for `O(n; k)`, which includes `O(3; 1)`) and Exercise 5.
@@ -138,6 +139,12 @@ contacted, and none of them has asked for or endorsed this entry.
   exercises, and statement 5 without its projections (source S9 below). The self-dual splitting of the complexified Lorentz algebra and
   the invariant forms of a simple real Lie algebra are used in Sahlmann and Seeger (2024) and in
   Francis-Staite and Leistner (2021), and the Hodge operator on `so(3, 1)` in Wise (2010).
+- **Bi-invariant metrics.** The nonzero forms of statement 6 correspond to the bi-invariant
+  metrics on `SL(2, ℂ)`. Francis-Staite and Leistner (2021, Theorems 1.3 and 4.1, pp. 4 and 12 of
+  the arXiv version) determine which of them are conformally Einstein: the multiples of the
+  Killing form, and the multiples of the imaginary part of the complex Killing form, the latter
+  conformally flat. These are the forms with `b = 0` and those with `a = 0` here (these
+  identifications are computations from statement 4, not formalized).
 
 ## The compared statements (namespace `MinkowskiLorentz`)
 
@@ -677,8 +684,9 @@ content of its theory `Classical_Groups` was not read.
 - [`stalex444/one-complex-place-lorentz-group-galois-boost`](https://github.com/stalex444/one-complex-place-lorentz-group-galois-boost/tree/ec70bded79e51b31f907b085f71756a79df0fe33)
   (not a registered entry on 2026-11-13): seven modules of its library `ArithmeticLorentz` are a
   Solution-side
-  dependency here (see "Files"). Its statements on the Hodge images of generators are not
-  compared here.
+  dependency here (see "Files"). Its statements on the Hodge images of generators and on the
+  square of its Hodge operator on `so(3, 1)` (`hodgeOp_hodgeOp`,
+  `ArithmeticLorentz/RegisterBridge.lean:712`) are not compared here.
 - PALOMAR-2026-09-30-000024 (`stalex444/pdt-hodge-lie-generation`, commit
   `e2d8dde6f076b730b9a718c95ff1664c6aa88b51`): the module `GravityScreening/SignedLieGeneration.lean` of this entry is an unchanged copy of the file of the same name at that commit (git blob id compared; the same blob is in `stalex444/pdt-em-source-selection`, see "Files"). Its compared statement is a different
   theorem on the same family of operators.

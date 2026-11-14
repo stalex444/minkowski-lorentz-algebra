@@ -518,7 +518,9 @@ related_formalizations:
       are unchanged copies of the files of the same names at that commit
       (git blob ids compared). They are on the Solution side only: no file
       of them is imported by Challenge.lean. Its statements on the Hodge
-      images of generators are not compared here.
+      images of generators and on the square of its Hodge operator on
+      so(3, 1) (hodgeOp_hodgeOp, ArithmeticLorentz/RegisterBridge.lean:712)
+      are not compared here.
   - id: "https://github.com/stalex444/pdt-hodge-lie-generation/tree/e2d8dde6f076b730b9a718c95ff1664c6aa88b51"
     relationship: "builds-on"
     note: >-
