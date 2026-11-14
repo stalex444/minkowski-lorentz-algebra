@@ -431,3 +431,8 @@ Round of 2026-11-14 (after the re-check of commit 8f14615bebea691656b620f3823f30
       eb5bdd2a40d2fef0552114931e6b730d079ae7de68c7d41ad6f592b84d378a99  NOTICE
   NOT RUN in this round: lake exe cache get; a build of the edited tree from a fresh clone; the structural
     hash check of section 4; the negative control of section 5; the registry's own submission workflow.
+
+Added after this record, in its own commit (2026-11-14): .github/workflows/palomar-preflight.yml, the
+  dispatch-only workflow that runs the registry's submission workflow on a public commit of this repository
+  (37 tracked files with it; no other file changed apart from this note). Its result is in the
+  repository's Actions runs, not in this file.
